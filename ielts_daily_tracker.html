@@ -1,0 +1,994 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-sans); }
+.tracker { padding: 1rem 0; }
+.header { margin-bottom: 1.5rem; }
+.header h2 { font-size: 20px; font-weight: 500; color: var(--color-text-primary); }
+.header p { font-size: 13px; color: var(--color-text-secondary); margin-top: 4px; }
+.phase-tabs { display: flex; gap: 8px; margin-bottom: 1rem; flex-wrap: wrap; }
+.phase-btn { padding: 6px 14px; font-size: 13px; border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); background: transparent; cursor: pointer; color: var(--color-text-secondary); }
+.phase-btn.active { background: var(--color-background-secondary); color: var(--color-text-primary); border-color: var(--color-border-primary); font-weight: 500; }
+.week-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 1.5rem; }
+.week-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 12px 14px; cursor: pointer; transition: border-color 0.15s; }
+.week-card:hover { border-color: var(--color-border-primary); }
+.week-card.active { border: 1.5px solid #378ADD; }
+.week-card .week-title { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
+.week-card .week-sub { font-size: 11px; color: var(--color-text-secondary); margin-top: 2px; }
+.week-card .prog-bar { height: 3px; background: var(--color-background-secondary); border-radius: 2px; margin-top: 8px; overflow: hidden; }
+.week-card .prog-fill { height: 100%; background: #378ADD; border-radius: 2px; transition: width 0.3s; }
+.week-card .prog-label { font-size: 10px; color: var(--color-text-tertiary); margin-top: 4px; }
+.day-view { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1.25rem; }
+.day-tabs { display: flex; gap: 6px; margin-bottom: 1.25rem; flex-wrap: wrap; }
+.day-btn { padding: 5px 12px; font-size: 12px; border: 0.5px s
+  
+  
+  olid var(--color-border-secondary); border-radius: var(--border-radius-md); background: transparent; cursor: pointer; color: var(--color-text-secondary); }
+.day-btn.active { background: #E6F1FB; color: #185FA5; border-color: #85B7EB; font-weight: 500; }
+.day-btn.done { background: #EAF3DE; color: #3B6D11; border-color: #97C459; }
+.day-btn.rest { background: var(--color-background-secondary); color: var(--color-text-tertiary); }
+.task-section { margin-bottom: 1rem; }
+.task-section h4 { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-text-tertiary); margin-bottom: 8px; padding-bottom: 6px; border-bottom: 0.5px solid var(--color-border-tertiary); }
+.task-item { display: flex; align-items: flex-start; gap: 10px; padding: 7px 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
+.task-item:last-child { border-bottom: none; }
+.task-item input[type=checkbox] { margin-top: 2px; flex-shrink: 0; width: 15px; height: 15px; cursor: pointer; }
+.task-label { font-size: 13.5px; color: var(--color-text-primary); line-height: 1.5; cursor: pointer; }
+.task-label.checked { text-decoration: line-through; color: var(--color-text-tertiary); }
+.task-meta { font-size: 11px; color: var(--color-text-secondary); margin-top: 2px; }
+.skill-badge { display: inline-block; padding: 2px 7px; border-radius: 4px; font-size: 10px; font-weight: 500; margin-right: 4px; }
+.badge-l { background: #E6F1FB; color: #185FA5; }
+.badge-r { background: #EAF3DE; color: #3B6D11; }
+.badge-w { background: #FAEEDA; color: #854F0B; }
+.badge-s { background: #EEEDFE; color: #534AB7; }
+.badge-v { background: #FAECE7; color: #993C1D; }
+.badge-g { background: #F1EFE8; color: #5F5E5A; }
+.day-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+.day-title { font-size: 15px; font-weight: 500; color: var(--color-text-primary); }
+.day-progress { font-size: 12px; color: var(--color-text-secondary); }
+.rest-day { text-align: center; padding: 2rem; color: var(--color-text-secondary); }
+.rest-day i { font-size: 32px; display: block; margin-bottom: 8px; }
+.overall-progress { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 1.5rem; }
+.stat-card { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 10px 12px; text-align: center; }
+.stat-card .stat-val { font-size: 20px; font-weight: 500; color: var(--color-text-primary); }
+.stat-card .stat-lbl { font-size: 10px; color: var(--color-text-secondary); margin-top: 2px; }
+</style>
+
+<div class="tracker">
+  <h2 class="sr-only">IELTS 12-week daily study tracker for Mohamed Reda</h2>
+  <div class="header">
+    <h2>Mohamed Reda — IELTS study tracker</h2>
+    <p>Target: Band 6.5–7.0 · 12 weeks · 3.5 hrs/day · 6 days/week</p>
+  </div>
+
+  <div class="overall-progress">
+    <div class="stat-card"><div class="stat-val" id="total-done">0</div><div class="stat-lbl">Tasks done</div></div>
+    <div class="stat-card"><div class="stat-val" id="total-pct">0%</div><div class="stat-lbl">Overall progress</div></div>
+    <div class="stat-card"><div class="stat-val" id="weeks-done">0</div><div class="stat-lbl">Weeks complete</div></div>
+    <div class="stat-card"><div class="stat-val" id="streak">0</div><div class="stat-lbl">Days streak</div></div>
+  </div>
+
+  <div class="phase-tabs">
+    <button class="phase-btn active" onclick="setPhase(0)">Month 1 — Foundation</button>
+    <button class="phase-btn" onclick="setPhase(1)">Month 2 — Skills</button>
+    <button class="phase-btn" onclick="setPhase(2)">Month 3 — Mocks</button>
+  </div>
+
+  <div class="week-grid" id="week-grid"></div>
+  <div class="day-view" id="day-view"></div>
+</div>
+
+<script>
+const WEEKS = [
+  {
+    title: "Week 1", sub: "Grammar — Tenses", phase: 0,
+    days: [
+      { title: "Day 1 — Mon", tasks: [
+        {skill:"G", label:"Grammar: Study Present Simple vs Present Continuous — rules, form, uses"},
+        {skill:"G", label:"Do 20 grammar exercises on perfect-englishgrammar.com (Present Simple/Continuous)"},
+        {skill:"V", label:"Add 15 new words to Anki — daily routine vocabulary"},
+        {skill:"W", label:"Writing Task 1: Write 150+ words about your daily routine (untimed first draft)"},
+        {skill:"L", label:"Listening: Cambridge 14 Test 1 Section 1 — timed, no pausing"},
+        {skill:"L", label:"Listening: Cambridge 14 Test 1 Section 2 — timed, no pausing"},
+        {skill:"L", label:"Check answers, re-listen to wrong parts, note mistakes"},
+        {skill:"S", label:"Speaking Part 1: Record yourself answering 'Daily Routine' questions (5 min)"},
+        {skill:"S", label:"Listen back and identify 3 errors in your recording"},
+      ]},
+      { title: "Day 2 — Tue", tasks: [
+        {skill:"G", label:"Grammar: Study Past Simple vs Past Continuous vs Past Perfect"},
+        {skill:"G", label:"Do 20 exercises on past tenses (perfect-englishgrammar.com)"},
+        {skill:"V", label:"Anki: Review yesterday's 15 words + add 15 new words"},
+        {skill:"W", label:"Writing Task 2: 'Study abroad — advantages/disadvantages?' (250+ words, 40 min)"},
+        {skill:"W", label:"Submit essay to writeandimprove.com and note feedback"},
+        {skill:"L", label:"Listening: Cambridge 14 Test 1 Section 3 — focus, no pausing"},
+        {skill:"L", label:"Listening: Cambridge 14 Test 1 Section 4 — hardest, no pausing"},
+        {skill:"S", label:"Speaking: Practice using Past Tenses — describe what you did last week (3 min recorded)"},
+        {skill:"S", label:"Shadowing: Listen to 1 min BBC audio, repeat sentence by sentence"},
+      ]},
+      { title: "Day 3 — Wed", tasks: [
+        {skill:"G", label:"Grammar: Present Perfect vs Past Simple — when to use each"},
+        {skill:"G", label:"10 exercises on Present Perfect vs Past Simple"},
+        {skill:"V", label:"Anki: Daily review + add 15 new words"},
+        {skill:"W", label:"Writing Task 1: Line Graph — describe trends (150+ words, 20 min)"},
+        {skill:"W", label:"Check on writeandimprove.com"},
+        {skill:"R", label:"Reading: Cambridge 14 Passage 1 — Skim headings in 2 min first"},
+        {skill:"R", label:"Answer all questions timed (20 min), check answers, analyze errors"},
+        {skill:"S", label:"Speaking Part 2: Record 2 full minutes on a topic (e.g. a place you like)"},
+        {skill:"S", label:"Play back recording — did you speak for 2 full minutes without stopping?"},
+      ]},
+      { title: "Day 4 — Thu", tasks: [
+        {skill:"G", label:"Grammar: Articles — a / an / the / no article — rules + common exceptions"},
+        {skill:"G", label:"Do 15 article exercises"},
+        {skill:"V", label:"Anki: Daily review + add 15 new words"},
+        {skill:"W", label:"Writing Task 2: 'Should university education be free?' (250+ words, 40 min)"},
+        {skill:"W", label:"Proof-read for article errors before submitting to writeandimprove.com"},
+        {skill:"L", label:"Listening: Cambridge 15 Test 1 Section 1 + Section 2 — timed"},
+        {skill:"L", label:"Check answers, identify spelling errors"},
+        {skill:"S", label:"Speaking Part 1: Answer 10 questions using articles correctly (recorded, 5 min)"},
+        {skill:"S", label:"Review recording — correct any article mistakes you hear"},
+      ]},
+      { title: "Day 5 — Fri", tasks: [
+        {skill:"G", label:"Grammar: Connectors — although / however / despite / in spite of / nevertheless"},
+        {skill:"G", label:"Write 10 sentences using each connector correctly"},
+        {skill:"V", label:"Anki: Review all 75 words from this week — delete well-known ones"},
+        {skill:"W", label:"Writing: Review all week's essays — make a list of recurring grammar mistakes"},
+        {skill:"R", label:"Reading: Cambridge 15 Test 1 Passage 2 — full 20 min timed"},
+        {skill:"R", label:"Analyze every wrong answer — understand WHY it was wrong"},
+        {skill:"S", label:"Speaking: Free talk for 3 min using connectors (however/although/despite)"},
+        {skill:"S", label:"Record and listen back — count how many connectors you used"},
+      ]},
+      { title: "Day 6 — Sat (Mini Mock)", tasks: [
+        {skill:"L", label:"MINI MOCK — Listening: Cambridge 14 Full Test (Sections 1–4, 40 min, no pause)"},
+        {skill:"R", label:"MINI MOCK — Reading: Cambridge 14 Passages 1+2+3 (60 min exactly, timed)"},
+        {skill:"W", label:"MINI MOCK — Writing: Task 1 (20 min) + Task 2 (40 min) back-to-back"},
+        {skill:"S", label:"MINI MOCK — Speaking: Record 15-min mock (Part 1 + Part 2 + Part 3)"},
+        {skill:"G", label:"After mock: Score Listening & Reading, note raw scores /40 in your tracker"},
+        {skill:"W", label:"Self-assess Writing using IELTS band descriptors checklist"},
+        {skill:"S", label:"Analyze Speaking recording — identify your top 3 weaknesses"},
+      ]},
+      { title: "Day 7 — Sun (Rest)", rest: true, tasks: [
+        {skill:"V", label:"Light review: Flip through all Anki cards (no new cards today)"},
+        {skill:"L", label:"BBC Learning English: Listen to one 6-Minute English episode (enjoyment only)"},
+        {skill:"G", label:"Watch IELTS Liz YouTube: Week 1 Tips video"},
+        {skill:"G", label:"Write down the 3 biggest grammar mistakes from this week"},
+        {skill:"G", label:"Rest and prepare mentally for Week 2"},
+      ]},
+    ]
+  },
+  {
+    title: "Week 2", sub: "Vocabulary — 100+ words", phase: 0,
+    days: [
+      { title: "Day 1 — Mon", tasks: [
+        {skill:"V", label:"Vocabulary: Education theme — learn 20 new words (Cambridge Vocab for IELTS)"},
+        {skill:"V", label:"Add all 20 Education words to Anki with example sentences"},
+        {skill:"W", label:"Writing Task 2: Education topic — 250+ words, avoid 'good/bad/very/nice'"},
+        {skill:"W", label:"Use at least 5 of today's new Education vocabulary words in the essay"},
+        {skill:"W", label:"Submit to writeandimprove.com, note score"},
+        {skill:"R", label:"Reading: Cambridge 14 Passage 3 — full 20 min timed"},
+        {skill:"R", label:"Analyze every mistake — categorize error type"},
+        {skill:"S", label:"Speaking: Talk about your school/university for 2 min (recorded)"},
+        {skill:"S", label:"Use as many Education vocabulary words as possible"},
+      ]},
+      { title: "Day 2 — Tue", tasks: [
+        {skill:"V", label:"Vocabulary: Health theme — learn 20 new words + add to Anki"},
+        {skill:"V", label:"Anki: Review all previous words (Education + Health)"},
+        {skill:"W", label:"Writing Task 2: 'Healthcare vs Military spending — where should government invest?' (40 min)"},
+        {skill:"L", label:"Listening: Cambridge 15 Test 2 Section 3 — academic, focus"},
+        {skill:"L", label:"Listening: Cambridge 15 Test 2 Section 4 — hardest section"},
+        {skill:"L", label:"Check answers, re-listen to all wrong answers"},
+        {skill:"S", label:"Shadowing exercise: BBC or TED audio — repeat each sentence 3 times"},
+        {skill:"S", label:"Record 2 min talking about health — use new vocabulary"},
+      ]},
+      { title: "Day 3 — Wed", tasks: [
+        {skill:"V", label:"Vocabulary: Environment theme — learn 20 new words + add to Anki"},
+        {skill:"V", label:"Anki: Review all previous vocab batches"},
+        {skill:"W", label:"Writing Task 1: Bar Chart — CO2 emissions comparison (20 min)"},
+        {skill:"W", label:"Use environment vocabulary in the description"},
+        {skill:"R", label:"Reading: Cambridge 16 Test 1 Passage 1 — full 20 min timed"},
+        {skill:"R", label:"Focus on True/False/Not Given questions — understand the difference"},
+        {skill:"S", label:"Speaking: 3-min conversation about environment topics (recorded)"},
+        {skill:"S", label:"Use today's new vocabulary words in the recording"},
+      ]},
+      { title: "Day 4 — Thu", tasks: [
+        {skill:"V", label:"Vocabulary: Technology theme — learn 20 new words + add to Anki"},
+        {skill:"V", label:"Anki: Full review of all 80 words learned this week"},
+        {skill:"W", label:"Writing Task 2: 'Does technology make people less social?' (40 min)"},
+        {skill:"W", label:"Check essay on writeandimprove.com"},
+        {skill:"L", label:"Listening: Cambridge 15 Test 1 Full (Sections 1–4) — timed"},
+        {skill:"S", label:"Speaking Part 2: Record 2 min — 'A piece of technology you can't live without'"},
+        {skill:"S", label:"Use Technology vocabulary + connectors: however / on the other hand"},
+      ]},
+      { title: "Day 5 — Fri", tasks: [
+        {skill:"V", label:"Vocabulary: Society & Crime theme — learn 20 new words + add to Anki"},
+        {skill:"V", label:"Anki: Review all 100 words from this week"},
+        {skill:"W", label:"Writing Task 2: 'Is prison effective for reducing crime?' (40 min)"},
+        {skill:"W", label:"Use Society & Crime vocabulary — no repeating same word more than 3 times"},
+        {skill:"R", label:"Reading: Cambridge 16 Test 1 Passage 2 — full 20 min timed"},
+        {skill:"R", label:"Count how many questions you got right vs wrong — track progress"},
+        {skill:"S", label:"Speaking: Discuss crime and punishment topic (2 min recorded)"},
+      ]},
+      { title: "Day 6 — Sat (Vocab Mock)", tasks: [
+        {skill:"V", label:"VOCAB CHALLENGE: Write an essay using ALL 100 words from this week — any topic"},
+        {skill:"L", label:"Listening: Cambridge 15 Test 2 Full (Sections 1–4) — real exam conditions"},
+        {skill:"L", label:"Score test, write results in weekly tracker"},
+        {skill:"R", label:"Reading: Full test timed — Cambridge 15 Test 2 (60 min)"},
+        {skill:"W", label:"Review week's essays — note vocabulary improvements vs Week 1"},
+        {skill:"S", label:"Speaking: 10 Part 1 questions on various topics (recorded, 10 min)"},
+        {skill:"S", label:"Review: Are you using new vocabulary or defaulting to simple words?"},
+      ]},
+      { title: "Day 7 — Sun (Rest)", rest: true, tasks: [
+        {skill:"V", label:"Review ALL Anki cards from Weeks 1 & 2 (light, no new cards)"},
+        {skill:"L", label:"Watch a TED Talk for 30 min on a topic you enjoy"},
+        {skill:"G", label:"Update your weekly progress tracker with Week 2 scores"},
+        {skill:"G", label:"Write down 5 vocabulary words you still confuse or forget"},
+      ]},
+    ]
+  },
+  {
+    title: "Week 3", sub: "Writing — Templates & Methods", phase: 0,
+    days: [
+      { title: "Day 1 — Mon", tasks: [
+        {skill:"W", label:"Memorize Task 2 template structure: Introduction (2 sent.) + Body 1 + Body 2 + Conclusion"},
+        {skill:"W", label:"Writing Task 2: 'Should government control food choices?' — use the template exactly"},
+        {skill:"W", label:"Submit to writeandimprove.com — target score improvement"},
+        {skill:"V", label:"Anki: Daily review + 15 new words (AWL — Academic Word List)"},
+        {skill:"L", label:"Listening: Cambridge 16 Test 1 Section 1 + Section 2"},
+        {skill:"L", label:"Check answers, re-listen to mistakes"},
+        {skill:"S", label:"Speaking Part 1: 5 questions (2 min each) — use connectors"},
+      ]},
+      { title: "Day 2 — Tue", tasks: [
+        {skill:"W", label:"Discussion Essay type: 'Is technology destroying human relationships?'"},
+        {skill:"W", label:"Practice using: while / whereas / on the other hand / in contrast"},
+        {skill:"W", label:"Submit to writeandimprove.com"},
+        {skill:"V", label:"Anki: Daily review + 15 new words"},
+        {skill:"R", label:"Reading: Cambridge 16 Test 1 Passage 3 — hardest passage, 20 min timed"},
+        {skill:"R", label:"Analyze errors — which question type do you fail most?"},
+        {skill:"S", label:"Speaking Part 3: Discussion questions on technology (recorded, 5 min)"},
+        {skill:"S", label:"Practice extended answers: give opinion + reason + example"},
+      ]},
+      { title: "Day 3 — Wed", tasks: [
+        {skill:"W", label:"Problem/Solution Essay type: 'Traffic congestion in cities' (40 min)"},
+        {skill:"W", label:"Memorize Task 1 template: Overview + Feature 1 + Feature 2"},
+        {skill:"W", label:"Submit Task 2 to writeandimprove.com"},
+        {skill:"V", label:"Anki: Daily review + 15 new words"},
+        {skill:"L", label:"Listening: Cambridge 16 Test 1 Section 3 — academic dialogue"},
+        {skill:"L", label:"Listening: Cambridge 16 Test 1 Section 4 — monologue"},
+        {skill:"S", label:"Speaking: Record 15 min — Part 1 (5 min) + Part 2 (2 min) + Part 3 (5 min)"},
+        {skill:"S", label:"Listen back — count filler words (um/uh) and try to reduce them"},
+      ]},
+      { title: "Day 4 — Thu", tasks: [
+        {skill:"W", label:"Writing Task 1: Line Graph — practice describing changes (rise/fall/peak/plateau)"},
+        {skill:"W", label:"Writing Task 2: Review all this week's errors — rewrite one improved paragraph"},
+        {skill:"V", label:"Anki: Daily review + 15 new words"},
+        {skill:"R", label:"Reading: Cambridge 17 Test 1 Passage 1 — 20 min timed"},
+        {skill:"R", label:"Note any new academic vocabulary from the passage — add to Anki"},
+        {skill:"S", label:"Speaking Part 1: 10 questions on different topics (recorded)"},
+        {skill:"S", label:"Focus: answer in 2–3 sentences minimum, add reason/example"},
+      ]},
+      { title: "Day 5 — Fri", tasks: [
+        {skill:"W", label:"Writing Task 1: Bar Chart (20 min) — practice describing categories"},
+        {skill:"W", label:"Writing Task 1: Pie Chart (20 min) — practice using percentages vocabulary"},
+        {skill:"V", label:"Vocabulary: Review Academic Word List at awlquizzes.com — 1 quiz"},
+        {skill:"V", label:"Anki: Review all words, focus on ones you keep forgetting"},
+        {skill:"L", label:"Listening: Cambridge 16 Test 2 Full — timed, no pause"},
+        {skill:"R", label:"Reading: Cambridge 17 Test 1 Passage 2 — 20 min timed"},
+      ]},
+      { title: "Day 6 — Sat (Writing Mock)", tasks: [
+        {skill:"W", label:"FULL WRITING TEST: Task 1 — EXACTLY 20 minutes (set a timer, stop when it rings)"},
+        {skill:"W", label:"FULL WRITING TEST: Task 2 — EXACTLY 40 minutes (no extra time)"},
+        {skill:"W", label:"Submit both to writeandimprove.com — note scores"},
+        {skill:"R", label:"Reading: Cambridge 17 Test 1 Passage 3 — 20 min timed"},
+        {skill:"V", label:"Anki: Full review of all words learned in Week 3"},
+        {skill:"S", label:"Record 10 min Speaking on any topic — review for fluency"},
+      ]},
+      { title: "Day 7 — Sun (Rest)", rest: true, tasks: [
+        {skill:"W", label:"Review all Week 3 essays — write a list of your 5 most common errors"},
+        {skill:"W", label:"Re-read your best essay and memorize the template structure"},
+        {skill:"V", label:"Light Anki review (no new words)"},
+        {skill:"G", label:"Update weekly progress tracker with Week 3 scores"},
+      ]},
+    ]
+  },
+  {
+    title: "Week 4", sub: "Speaking — Recording & Analysis", phase: 0,
+    days: [
+      { title: "Day 1 — Mon", tasks: [
+        {skill:"S", label:"Speaking Part 1: Record 20 different questions (Where do you live? What's your job? etc.)"},
+        {skill:"S", label:"Listen back — are answers 2–3 sentences? Any grammar mistakes?"},
+        {skill:"G", label:"Grammar: Comprehensive review of Weeks 1–3 grammar topics"},
+        {skill:"V", label:"Anki: Daily review + 15 new words"},
+        {skill:"W", label:"Writing Task 2: Choose any topic from 'Ideas for IELTS' — write freely (40 min)"},
+        {skill:"L", label:"Listening: Cambridge 17 Test 1 Section 1 + Section 2"},
+        {skill:"L", label:"Check answers, analyze errors"},
+      ]},
+      { title: "Day 2 — Tue", tasks: [
+        {skill:"S", label:"Speaking Part 2: Record 'A place you have visited' (2 min)"},
+        {skill:"S", label:"Speaking Part 2: Record 'A person who influenced you' (2 min)"},
+        {skill:"S", label:"Speaking Part 2: Record 'A book you read' (2 min)"},
+        {skill:"S", label:"Calculate your WPM (words per minute) — target: 100+ WPM"},
+        {skill:"V", label:"Anki: Daily review + 15 new words"},
+        {skill:"R", label:"Reading: Cambridge 17 Test 1 Passage 3 — 20 min timed"},
+        {skill:"W", label:"Writing Task 1: Any graph type — 20 min"},
+      ]},
+      { title: "Day 3 — Wed", tasks: [
+        {skill:"S", label:"Speaking Part 3: Record 10 deep discussion questions (5 min total)"},
+        {skill:"S", label:"Practice the formula: 'That's an interesting question. I think... because... For example...'"},
+        {skill:"S", label:"Review recording — are your Part 3 answers detailed enough (1+ min each)?"},
+        {skill:"V", label:"Anki: Daily review + 15 new words"},
+        {skill:"L", label:"Listening: Cambridge 17 Test 2 Full (Sections 1–4) — timed"},
+        {skill:"L", label:"Score the test, write in tracker"},
+        {skill:"W", label:"Writing Task 2: 250+ words on opinion topic (40 min)"},
+      ]},
+      { title: "Day 4 — Thu", tasks: [
+        {skill:"S", label:"Pronunciation: ELSA Speak app — 45 min focused session"},
+        {skill:"S", label:"Drill problem sounds: /p/ vs /b/, /θ/ (think) vs /ð/ (this), /r/ vs /l/"},
+        {skill:"V", label:"Anki: Daily review + 15 new words"},
+        {skill:"R", label:"Reading: Cambridge 14 Test 2 Passage 1+2 — 40 min timed"},
+        {skill:"R", label:"Check answers, analyze error types"},
+        {skill:"W", label:"Writing Task 1: Process diagram or Map — describe in 150+ words (20 min)"},
+        {skill:"L", label:"Listening: Section 3+4 practice only (hardest sections)"},
+      ]},
+      { title: "Day 5 — Fri", tasks: [
+        {skill:"S", label:"Shadowing: Simon Sinek TED Talk — listen to sentence, pause, repeat 3 times"},
+        {skill:"S", label:"Shadow for 15 continuous minutes — focus on rhythm and stress"},
+        {skill:"V", label:"Anki: Daily review + 15 new words"},
+        {skill:"L", label:"Listening: Cambridge 17 Test 2 Section 3 + Section 4 — focused practice"},
+        {skill:"W", label:"Writing Task 2: Problem/Solution essay (40 min)"},
+        {skill:"W", label:"Submit to writeandimprove.com"},
+      ]},
+      { title: "Day 6 — Sat (Full Speaking Mock)", tasks: [
+        {skill:"S", label:"FULL MOCK SPEAKING: Part 1 — 5 questions (5 min) — record everything"},
+        {skill:"S", label:"FULL MOCK SPEAKING: Part 2 — Cue card, 1 min prep + 2 min talk"},
+        {skill:"S", label:"FULL MOCK SPEAKING: Part 3 — 5 follow-up questions (5 min)"},
+        {skill:"S", label:"Review recording with Speaking checklist — score yourself"},
+        {skill:"R", label:"Reading: Cambridge 14 Test 2 Passage 3 + Full Test — 60 min timed"},
+        {skill:"L", label:"Listening: Any Cambridge test — 40 min, timed"},
+      ]},
+      { title: "Day 7 — Sun (Rest)", rest: true, tasks: [
+        {skill:"S", label:"Analyze ALL Speaking recordings from this week — list 3 recurring mistakes"},
+        {skill:"L", label:"BBC Podcast: 6 Minute English — 1 episode for enjoyment"},
+        {skill:"G", label:"Update weekly tracker with Week 4 scores"},
+        {skill:"G", label:"Review Month 1 goals — are you on track for 5.5 overall?"},
+      ]},
+    ]
+  },
+  {
+    title: "Week 5", sub: "Reading Strategies — 4.5→6.0", phase: 1,
+    days: [
+      { title: "Day 1 — Mon", tasks: [
+        {skill:"R", label:"Reading strategy: Skim each paragraph in 30 sec — read first/last line only"},
+        {skill:"R", label:"Keyword technique: Underline keywords in questions BEFORE reading passage"},
+        {skill:"R", label:"Cambridge 16 Test 1 Full Reading — 60 min exactly"},
+        {skill:"R", label:"Analyze EVERY mistake — write error type (T/F/NG confusion, keyword missed, etc.)"},
+        {skill:"V", label:"Anki: Daily review + 15 new words from passages"},
+        {skill:"S", label:"Speaking Part 2: Record 2 min cue card (recorded)"},
+        {skill:"W", label:"Writing Task 2: 40 min essay — any topic"},
+      ]},
+      { title: "Day 2 — Tue", tasks: [
+        {skill:"R", label:"Analyze Cambridge 16 Test 1 in depth — re-read all wrong passages"},
+        {skill:"R", label:"Focus drill: True / False / Not Given — re-do all T/F/NG questions you got wrong"},
+        {skill:"R", label:"Rule: T/F/NG — 'Not Given' means the text is SILENT, not wrong"},
+        {skill:"V", label:"Anki: Daily review + 15 new words"},
+        {skill:"W", label:"Writing Task 2: Discussion essay (40 min)"},
+        {skill:"L", label:"Listening: Cambridge 16 Test 1 Full — timed"},
+        {skill:"S", label:"Speaking Part 1: 10 questions (recorded, 10 min)"},
+      ]},
+      { title: "Day 3 — Wed", tasks: [
+        {skill:"R", label:"Cambridge 16 Test 2 Full Reading — 60 min exactly, no pausing"},
+        {skill:"R", label:"Focus on Matching Headings questions — this question type is worth practicing"},
+        {skill:"R", label:"Heading trick: Read only first sentence of each paragraph before matching"},
+        {skill:"V", label:"Anki: Daily review + 15 new words"},
+        {skill:"L", label:"Listening: Cambridge 16 Test 2 Full — real exam conditions"},
+        {skill:"S", label:"Speaking Part 1: Different topic set (10 min, recorded)"},
+        {skill:"W", label:"Writing Task 1: 20 min"},
+      ]},
+      { title: "Day 4 — Thu", tasks: [
+        {skill:"R", label:"Analyze Cambridge 16 Test 2 — identify which passage type takes most time"},
+        {skill:"R", label:"Time yourself per passage: aim for 20 min each, not 25+ min"},
+        {skill:"V", label:"Anki: Daily review + 15 new words"},
+        {skill:"W", label:"Writing Task 1: 20 min (different graph type from yesterday)"},
+        {skill:"L", label:"Listening: Section 3 + Section 4 drill (Cambridge 16)"},
+        {skill:"S", label:"Speaking Part 3: Deep discussion questions (5 min, recorded)"},
+        {skill:"S", label:"Review — are you using 'however / moreover / on the other hand'?"},
+      ]},
+      { title: "Day 5 — Fri", tasks: [
+        {skill:"R", label:"Cambridge 17 Test 1 Full Reading — try to beat your previous score"},
+        {skill:"R", label:"Goal: 24+ correct answers (/40) — track improvement"},
+        {skill:"V", label:"Anki: Full review + 15 new words"},
+        {skill:"L", label:"Listening: Cambridge 17 Test 1 Section 3 + Section 4"},
+        {skill:"S", label:"Speaking Part 3: Practice 5 more discussion topics"},
+        {skill:"W", label:"Writing Task 2: 40 min"},
+      ]},
+      { title: "Day 6 — Sat (Full Reading Mock)", tasks: [
+        {skill:"R", label:"FULL READING TEST: Choose Cambridge 15 Test 1 — exactly 60 min, strict timing"},
+        {skill:"R", label:"Score and compare to Weeks 1–4 scores — write in tracker"},
+        {skill:"W", label:"Writing Task 2: Full 40 min"},
+        {skill:"L", label:"Listening: Any full Cambridge test — timed"},
+        {skill:"S", label:"Speaking: Record 10 min mixed practice"},
+      ]},
+      { title: "Day 7 — Sun (Rest)", rest: true, tasks: [
+        {skill:"R", label:"Read 1 article from BBC or The Guardian — practice reading for pleasure"},
+        {skill:"L", label:"6 Minute English: 1 episode for vocabulary"},
+        {skill:"G", label:"Update weekly tracker — compare Reading scores to target (6.0)"},
+      ]},
+    ]
+  },
+  {
+    title: "Week 6", sub: "Listening Mastery — 5.0→6.5", phase: 1,
+    days: [
+      { title: "Day 1 — Mon", tasks: [
+        {skill:"L", label:"Listening strategy: Read ALL questions BEFORE audio starts — use the gap"},
+        {skill:"L", label:"Always write an answer — even if unsure, never leave blank"},
+        {skill:"L", label:"Cambridge 14 Test 2 Section 1 + Section 2 — apply new strategy"},
+        {skill:"L", label:"Check answers immediately, re-listen to wrong parts"},
+        {skill:"V", label:"Anki: Daily review + 15 new words"},
+        {skill:"S", label:"Speaking Part 2: 2 min cue card (recorded)"},
+        {skill:"R", label:"Reading: 1 passage timed (20 min)"},
+        {skill:"W", label:"Writing Task 1: 20 min"},
+      ]},
+      { title: "Day 2 — Tue", tasks: [
+        {skill:"L", label:"Cambridge 14 Test 2 Section 3 + Section 4 — academic content, hardest"},
+        {skill:"L", label:"Section 4 tip: The topic is academic — identify subject early"},
+        {skill:"L", label:"Re-listen to script, shadow 2 minutes of audio"},
+        {skill:"V", label:"Anki: Daily review + 15 new words"},
+        {skill:"W", label:"Writing Task 1: Bar chart or table (20 min)"},
+        {skill:"S", label:"Speaking Part 1: 10 questions (recorded)"},
+        {skill:"R", label:"Reading: 1 passage timed"},
+      ]},
+      { title: "Day 3 — Wed", tasks: [
+        {skill:"L", label:"Cambridge 15 Test 1 Full Listening — all 4 sections, real exam conditions"},
+        {skill:"L", label:"Score test — write in tracker"},
+        {skill:"L", label:"Shadowing: Find audio script online, shadow for 10 minutes"},
+        {skill:"V", label:"Anki: Daily review + 15 new words"},
+        {skill:"W", label:"Writing Task 2: 40 min essay"},
+        {skill:"R", label:"Reading: 1 passage timed"},
+        {skill:"S", label:"Speaking Part 2: Record a new cue card"},
+      ]},
+      { title: "Day 4 — Thu", tasks: [
+        {skill:"L", label:"Cambridge 15 Test 2 Section 3 + Section 4 — do twice, compare scores"},
+        {skill:"L", label:"Spelling drill: Write out 20 tricky words from listening (accommodation, necessary, etc.)"},
+        {skill:"V", label:"Anki: Daily review + 15 new words"},
+        {skill:"R", label:"Reading: Cambridge 15 Test 1 Full — 60 min, strict timing"},
+        {skill:"R", label:"Check + analyze errors"},
+        {skill:"S", label:"Speaking Part 3: 5 discussion questions (recorded)"},
+        {skill:"W", label:"Writing Task 1: 20 min"},
+      ]},
+      { title: "Day 5 — Fri", tasks: [
+        {skill:"L", label:"Cambridge 16 Test 1 Full Listening — NO pausing at all, exam conditions"},
+        {skill:"L", label:"Pay extra attention to spelling in Section 1+2"},
+        {skill:"V", label:"Anki: Daily review + 15 new words"},
+        {skill:"W", label:"Writing Task 1: Different graph type (20 min)"},
+        {skill:"R", label:"Reading: 1 passage timed"},
+        {skill:"S", label:"Speaking: Record 5 min free talk — listen back for fluency"},
+      ]},
+      { title: "Day 6 — Sat (Full Listening Mock)", tasks: [
+        {skill:"L", label:"FULL LISTENING TEST: Cambridge 16 Test 2 — complete exam conditions, no talking"},
+        {skill:"L", label:"Score and record in tracker — are you improving each week?"},
+        {skill:"W", label:"Writing Task 2: Full 40 min"},
+        {skill:"R", label:"Reading: Full test — 60 min"},
+        {skill:"S", label:"Speaking Mock: Full 15 min (Part 1+2+3 recorded)"},
+      ]},
+      { title: "Day 7 — Sun (Rest)", rest: true, tasks: [
+        {skill:"L", label:"BBC 6 Minute English: 1 episode — note any new vocabulary"},
+        {skill:"L", label:"Review all spelling errors from this week's listening tests"},
+        {skill:"G", label:"Update weekly tracker — compare Listening scores to target (6.5)"},
+      ]},
+    ]
+  },
+  {
+    title: "Week 7", sub: "Writing Advanced — Task 1 & 2", phase: 1,
+    days: [
+      { title: "Day 1 — Mon", tasks: [
+        {skill:"W", label:"Ideas for IELTS book: Read + note ideas for 5 topics (education, health, tech, environment, society)"},
+        {skill:"W", label:"Writing Task 2: Opinion essay — new topic you haven't done yet (40 min)"},
+        {skill:"W", label:"Submit to writeandimprove.com"},
+        {skill:"V", label:"Anki: Daily review + 15 new words"},
+        {skill:"R", label:"Reading: Cambridge 17 Test 2 Full — 60 min timed"},
+        {skill:"L", label:"Listening: Cambridge 17 Test 2 Section 3 + Section 4"},
+        {skill:"S", label:"Speaking: Use today's Ideas for IELTS in 2 min monologue (recorded)"},
+      ]},
+      { title: "Day 2 — Tue", tasks: [
+        {skill:"W", label:"Writing Task 2: Discussion essay — use advanced vocabulary (moreover / consequently / it is widely argued)"},
+        {skill:"W", label:"Avoid: good / bad / very / big / get — replace with academic synonyms"},
+        {skill:"W", label:"Writing Task 1: Multiple graphs on same page — describe both and compare"},
+        {skill:"V", label:"Anki: Daily review + 15 new words"},
+        {skill:"L", label:"Listening: Any full Cambridge test — timed"},
+        {skill:"S", label:"Speaking: Use Ideas for IELTS for Part 2 cue card (2 min, recorded)"},
+      ]},
+      { title: "Day 3 — Wed", tasks: [
+        {skill:"W", label:"Writing Task 2: Problem/Solution essay (40 min)"},
+        {skill:"W", label:"Writing Task 2 practice: Advantage/Disadvantage essay — different topic (40 min)"},
+        {skill:"V", label:"Anki: Daily review + 15 new words"},
+        {skill:"L", label:"Listening: Full test — timed"},
+        {skill:"R", label:"Reading: 1 full passage timed"},
+        {skill:"S", label:"Speaking Part 2: New cue card (2 min, recorded)"},
+      ]},
+      { title: "Day 4 — Thu", tasks: [
+        {skill:"W", label:"Writing Task 1: Process Diagram — describe each step using passive voice"},
+        {skill:"W", label:"Writing Task 1: Map comparison — describe changes between two maps"},
+        {skill:"W", label:"Writing Task 2: Two-Part Question essay (e.g. 'Why does X happen? What can be done?')"},
+        {skill:"V", label:"Anki: Daily review + 15 new words"},
+        {skill:"R", label:"Reading: Full test — 60 min timed"},
+        {skill:"S", label:"Speaking Part 3: 5 deep discussion questions (recorded)"},
+      ]},
+      { title: "Day 5 — Fri", tasks: [
+        {skill:"W", label:"Review ALL essays written this week — compile a list of recurring mistakes"},
+        {skill:"W", label:"Rewrite 1 weak paragraph from each essay using better vocabulary"},
+        {skill:"V", label:"Anki: Full review of all current words"},
+        {skill:"L", label:"Listening: Section 3 + Section 4 intensive drill"},
+        {skill:"R", label:"Reading: 1 passage timed"},
+        {skill:"S", label:"Speaking: Record yourself for 15 min — mixed practice all parts"},
+      ]},
+      { title: "Day 6 — Sat (Full Mock Day)", tasks: [
+        {skill:"W", label:"FULL WRITING TEST: Task 1 — exactly 20 min (Process/Map/Graph)"},
+        {skill:"W", label:"FULL WRITING TEST: Task 2 — exactly 40 min (new topic)"},
+        {skill:"W", label:"Submit both to writeandimprove.com — note improvement from Week 3 mock"},
+        {skill:"R", label:"FULL READING TEST: 60 min timed"},
+        {skill:"L", label:"FULL LISTENING TEST: 40 min timed"},
+        {skill:"S", label:"FULL SPEAKING MOCK: 15 min Part 1+2+3 recorded"},
+      ]},
+      { title: "Day 7 — Sun (Rest)", rest: true, tasks: [
+        {skill:"W", label:"Review Writing + Vocabulary progress — are templates becoming natural?"},
+        {skill:"L", label:"TED Talk: Watch for enjoyment (no studying, just English exposure)"},
+        {skill:"G", label:"Update weekly tracker with Week 7 scores"},
+      ]},
+    ]
+  },
+  {
+    title: "Week 8", sub: "Speaking Advanced — Fluency", phase: 1,
+    days: [
+      { title: "Day 1 — Mon", tasks: [
+        {skill:"S", label:"Makkar Speaking: Study + practice 10 new Cue Cards from the book"},
+        {skill:"S", label:"JAM Technique (Just A Minute): Talk on any topic for 1 full minute without stopping"},
+        {skill:"S", label:"Do JAM 5 times with different topics — no pausing allowed"},
+        {skill:"V", label:"Anki: Daily review + 15 new words"},
+        {skill:"W", label:"Writing Task 2: Opinion essay (40 min)"},
+        {skill:"L", label:"Listening: Full test — timed"},
+      ]},
+      { title: "Day 2 — Tue", tasks: [
+        {skill:"S", label:"Speaking Part 3: Practice depth answers using: 'That's a complex issue. I think... because... A good example would be...'"},
+        {skill:"S", label:"ELSA Speak: 30 min focused pronunciation session"},
+        {skill:"S", label:"Drill: /θ/ sound (think, three, through) — 10 sentences each"},
+        {skill:"V", label:"Anki: Daily review + 15 new words"},
+        {skill:"R", label:"Reading: Full test — 60 min timed"},
+        {skill:"W", label:"Writing Task 1: Any graph type (20 min)"},
+      ]},
+      { title: "Day 3 — Wed", tasks: [
+        {skill:"S", label:"Shadowing: Choose a TED Talk — shadow for 15 continuous minutes"},
+        {skill:"S", label:"Focus on: rhythm / sentence stress / natural pausing"},
+        {skill:"S", label:"Makkar Speaking: 10 more new Cue Cards"},
+        {skill:"V", label:"Anki: Daily review + 15 new words"},
+        {skill:"L", label:"Listening: Section 3 + Section 4 intensive (hardest sections)"},
+        {skill:"W", label:"Writing Task 2: Discussion essay (40 min)"},
+      ]},
+      { title: "Day 4 — Thu", tasks: [
+        {skill:"S", label:"FULL MOCK SPEAKING: Part 1 (5 min) + Part 2 (2 min) + Part 3 (5 min) — full 15 min recorded"},
+        {skill:"S", label:"Analyze recording against IELTS Speaking criteria: Fluency / Lexical / Grammar / Pronunciation"},
+        {skill:"S", label:"Score yourself on each criterion (1–9)"},
+        {skill:"V", label:"Anki: Daily review + 15 new words"},
+        {skill:"R", label:"Reading: Full test — 60 min timed"},
+        {skill:"W", label:"Writing Task 1: 20 min"},
+      ]},
+      { title: "Day 5 — Fri", tasks: [
+        {skill:"S", label:"Speaking Part 1: 20 DIFFERENT questions — variety across all topics"},
+        {skill:"S", label:"Pronunciation drill: ELSA Speak or IELTS-specific sounds — 20 min"},
+        {skill:"V", label:"Anki: Daily review + 15 new words"},
+        {skill:"L", label:"Listening: Full test — timed"},
+        {skill:"W", label:"Writing Task 2: Problem/Solution essay (40 min)"},
+        {skill:"R", label:"Reading: 1 passage timed"},
+      ]},
+      { title: "Day 6 — Sat (Full 4-Skill Mock)", tasks: [
+        {skill:"L", label:"FULL MOCK (real order): Listening — 40 min, no pause (Cambridge 17 or 16)"},
+        {skill:"R", label:"FULL MOCK: Reading — 60 min, strict timing"},
+        {skill:"W", label:"FULL MOCK: Writing — Task 1 (20 min) + Task 2 (40 min)"},
+        {skill:"S", label:"FULL MOCK: Speaking — 15 min, all parts recorded"},
+        {skill:"G", label:"Score all 4 skills and enter in tracker — this is your Month 2 baseline"},
+      ]},
+      { title: "Day 7 — Sun (Rest)", rest: true, tasks: [
+        {skill:"G", label:"Analyze the full mock — identify your 3 weakest areas"},
+        {skill:"L", label:"BBC Podcast: 6 Minute English"},
+        {skill:"G", label:"Prepare strategy for Month 3 based on weak areas"},
+        {skill:"G", label:"Update weekly tracker with Week 8 scores"},
+      ]},
+    ]
+  },
+  {
+    title: "Week 9", sub: "Mock Tests — Identify Gaps", phase: 2,
+    days: [
+      { title: "Day 1 — Mon (Full Mock 1)", tasks: [
+        {skill:"L", label:"MOCK TEST 1 — Listening: Cambridge 17 Test 1 (40 min, strict conditions, no phone)"},
+        {skill:"R", label:"MOCK TEST 1 — Reading: Cambridge 17 Test 1 (60 min, strict conditions)"},
+        {skill:"W", label:"MOCK TEST 1 — Writing: Task 1 (20 min) + Task 2 (40 min), both timed"},
+        {skill:"S", label:"MOCK TEST 1 — Speaking: Record full 15 min Part 1+2+3"},
+        {skill:"G", label:"After mock: Score Listening & Reading immediately, note scores in tracker"},
+      ]},
+      { title: "Day 2 — Tue (Mock Analysis)", tasks: [
+        {skill:"G", label:"Analyze Mock 1 in full — list EVERY mistake from all 4 skills"},
+        {skill:"G", label:"Identify your 3 weakest areas — be specific (e.g. 'Section 4 Listening', 'T/F/NG Reading')"},
+        {skill:"W", label:"Writing: Re-read your Mock 1 essays — identify 5 improvements to make"},
+        {skill:"S", label:"Speaking: Re-listen to Mock 1 recording — score using IELTS criteria"},
+        {skill:"V", label:"Anki: Full review of all current vocabulary cards"},
+        {skill:"S", label:"Makkar Speaking: 5 new Cue Cards"},
+      ]},
+      { title: "Day 3 — Wed (Weak Skills Focus)", tasks: [
+        {skill:"G", label:"Focus entirely on your weakest skill from Mock 1 — 1.5 hrs on that skill"},
+        {skill:"V", label:"Anki: Full review + 15 new words"},
+        {skill:"S", label:"Makkar Speaking: 5 new Cue Cards + record answers"},
+        {skill:"W", label:"Writing Task 2: Practice essay on a topic you find difficult (40 min)"},
+        {skill:"L", label:"Listening: Cambridge Section 3+4 drill (if Listening was weak)"},
+        {skill:"R", label:"Reading: 2 passages timed (if Reading was weak)"},
+      ]},
+      { title: "Day 4 — Thu (Full Mock 2)", tasks: [
+        {skill:"L", label:"MOCK TEST 2 — Listening: Cambridge 17 Test 2 (exact same conditions as Mock 1)"},
+        {skill:"R", label:"MOCK TEST 2 — Reading: Cambridge 17 Test 2 (exact same conditions)"},
+        {skill:"W", label:"MOCK TEST 2 — Writing: Task 1 (20 min) + Task 2 (40 min), timed"},
+        {skill:"S", label:"MOCK TEST 2 — Speaking: Record full 15 min Part 1+2+3"},
+        {skill:"G", label:"Score Listening & Reading immediately after"},
+      ]},
+      { title: "Day 5 — Fri (Mock 2 Analysis)", tasks: [
+        {skill:"G", label:"Analyze Mock 2 — compare scores with Mock 1. Did all skills improve?"},
+        {skill:"W", label:"Writing Intensive: Review all essays from this week — make corrections"},
+        {skill:"S", label:"Speaking Intensive: Re-listen to all recordings — find patterns in mistakes"},
+        {skill:"V", label:"Anki: Full review of all vocabulary"},
+        {skill:"G", label:"Write in tracker: Mock 1 vs Mock 2 score comparison"},
+      ]},
+      { title: "Day 6 — Sat (Intensive Practice)", tasks: [
+        {skill:"W", label:"Writing Intensive: Write 2 essays back-to-back (Task 1 + Task 2 x2) — build stamina"},
+        {skill:"S", label:"Speaking Intensive: Record 1 full hour — 20 Part 1 questions + 5 Cue Cards + 10 Part 3"},
+        {skill:"S", label:"Listen back to all recordings — mark progress vs Week 4 Speaking mock"},
+        {skill:"V", label:"Anki: Review all cards"},
+        {skill:"R", label:"Reading: 1 full test timed"},
+      ]},
+      { title: "Day 7 — Sun (Smart Rest)", rest: true, tasks: [
+        {skill:"G", label:"Review all checklists (Writing / Speaking / Reading / Listening / Exam Day)"},
+        {skill:"L", label:"1 Podcast episode for passive listening"},
+        {skill:"G", label:"Sleep early — recovery is part of the plan"},
+        {skill:"G", label:"Update weekly tracker with Week 9 scores"},
+      ]},
+    ]
+  },
+  {
+    title: "Week 10", sub: "Mock Tests — Targeted Improvement", phase: 2,
+    days: [
+      { title: "Day 1 — Mon (Full Mock 3)", tasks: [
+        {skill:"L", label:"MOCK TEST 3 — Listening: Cambridge 16 Test 1 (full exam conditions)"},
+        {skill:"R", label:"MOCK TEST 3 — Reading: Cambridge 16 Test 1 Academic (full 60 min)"},
+        {skill:"W", label:"MOCK TEST 3 — Writing: Task 1 (20 min) + Task 2 (40 min)"},
+        {skill:"S", label:"MOCK TEST 3 — Speaking: Full 15 min recorded"},
+        {skill:"G", label:"Score Listening & Reading — write in tracker"},
+      ]},
+      { title: "Day 2 — Tue (Mock 3 Analysis)", tasks: [
+        {skill:"G", label:"Analyze Mock 3 — identify which skills didn't reach target score"},
+        {skill:"S", label:"Focus: Speaking + Reading (likely weakest) — 1 hr each"},
+        {skill:"W", label:"Writing: Write 1 full essay on today's practice topic (40 min)"},
+        {skill:"V", label:"Anki: Full review"},
+        {skill:"G", label:"Update error log — are you still making the same mistakes as Week 9?"},
+      ]},
+      { title: "Day 3 — Wed (Reading Sprint)", tasks: [
+        {skill:"R", label:"Reading Sprint: Cambridge 15 Test 1 Passage 1 — 20 min timed"},
+        {skill:"R", label:"Reading Sprint: Cambridge 15 Test 1 Passage 2 — 20 min timed"},
+        {skill:"R", label:"Reading Sprint: Cambridge 15 Test 1 Passage 3 — 20 min timed"},
+        {skill:"R", label:"Review all strategies — which ones are you still not applying?"},
+        {skill:"V", label:"Anki: Full review + 15 new words"},
+        {skill:"S", label:"Speaking Part 2 intensive: 5 different cue cards, back-to-back (recorded)"},
+        {skill:"L", label:"Listening: Section 3+4 drill"},
+      ]},
+      { title: "Day 4 — Thu (Full Mock 4)", tasks: [
+        {skill:"L", label:"MOCK TEST 4 — Listening: Cambridge 16 Test 2 (full exam conditions, timed precisely)"},
+        {skill:"R", label:"MOCK TEST 4 — Reading: Cambridge 16 Test 2 (full 60 min)"},
+        {skill:"W", label:"MOCK TEST 4 — Writing: Task 1 (20 min) + Task 2 (40 min)"},
+        {skill:"S", label:"MOCK TEST 4 — Speaking: Record full 15 min"},
+        {skill:"G", label:"Score and record immediately"},
+      ]},
+      { title: "Day 5 — Fri (Mock 4 Analysis + Vocab)", tasks: [
+        {skill:"G", label:"Analyze Mock 4 — compare with Mocks 1, 2, 3. Clear improvement trend?"},
+        {skill:"W", label:"Writing: Use checklist BEFORE every essay — practice the habit"},
+        {skill:"V", label:"VOCABULARY REVIEW: Go through ALL 400+ words learned in Months 1+2 on Anki"},
+        {skill:"V", label:"Identify words you still forget — flag them, review again tonight"},
+        {skill:"G", label:"Write in tracker: Mock 4 scores vs all previous mocks"},
+      ]},
+      { title: "Day 6 — Sat (Listening Sprint)", tasks: [
+        {skill:"L", label:"Listening Sprint: Cambridge 17 Test 1 Full — exam conditions"},
+        {skill:"L", label:"Listening Sprint: Cambridge 17 Test 2 Full — same day, second test"},
+        {skill:"L", label:"Shadowing: Find audio script, shadow 10 min from Test 2 Section 4"},
+        {skill:"V", label:"Anki: Full review"},
+        {skill:"W", label:"Writing: 1 essay (40 min)"},
+      ]},
+      { title: "Day 7 — Sun (Rest)", rest: true, tasks: [
+        {skill:"G", label:"Review this week — are scores consistently above 6.0 in all skills?"},
+        {skill:"L", label:"Podcast or TED Talk for passive listening"},
+        {skill:"G", label:"Sleep 8 hours — the brain needs recovery to consolidate learning"},
+        {skill:"G", label:"Update weekly tracker with Week 10 scores"},
+      ]},
+    ]
+  },
+  {
+    title: "Week 11", sub: "Pre-Exam Consolidation", phase: 2,
+    days: [
+      { title: "Day 1 — Mon (Final Mock 5)", tasks: [
+        {skill:"L", label:"MOCK TEST 5 (Hardest): Cambridge 17 Test 2 Full Listening — try to reach target score"},
+        {skill:"R", label:"MOCK TEST 5: Cambridge 17 Test 2 Full Reading — aim for 6.0+ equivalent"},
+        {skill:"W", label:"MOCK TEST 5: Writing Task 1 (20 min) + Task 2 (40 min) — aim for 6.5"},
+        {skill:"S", label:"MOCK TEST 5: Speaking — full 15 min, aim for natural and confident"},
+        {skill:"G", label:"Score Listening & Reading — did you reach your target? Write in tracker"},
+      ]},
+      { title: "Day 2 — Tue (Final Analysis)", tasks: [
+        {skill:"G", label:"Final analysis: Write your COMPLETE list of all recurring mistakes"},
+        {skill:"G", label:"This is your pre-exam error sheet — read it every morning this week"},
+        {skill:"W", label:"Writing Final Review: Re-read your 5 best essays — internalize the structure"},
+        {skill:"S", label:"Speaking Final Review: Re-listen to 3 best recordings — copy what works"},
+        {skill:"V", label:"Anki: Review all flagged/difficult words"},
+      ]},
+      { title: "Day 3 — Wed (Light Review)", tasks: [
+        {skill:"W", label:"Writing: Review your 5 best essays + re-read both Task 1 and Task 2 templates"},
+        {skill:"W", label:"Write 1 practice Task 2 essay (40 min) on a topic you find easiest"},
+        {skill:"R", label:"Reading: 1 passage only — keep it light, build confidence"},
+        {skill:"S", label:"Speaking: Light practice — 5 Part 1 questions + 1 Cue Card (recorded)"},
+        {skill:"V", label:"Anki: Light review — only difficult cards"},
+        {skill:"L", label:"Listening: 1 section only (Section 1 for confidence)"},
+      ]},
+      { title: "Day 4 — Thu (Light Review)", tasks: [
+        {skill:"V", label:"Vocabulary: Review ALL Anki cards — complete run-through"},
+        {skill:"G", label:"Grammar: Review the key rules — tenses, articles, connectors, conditionals"},
+        {skill:"L", label:"Listening: 1 Section only (Section 2) — light practice"},
+        {skill:"W", label:"Writing: Review your Task 1 template and write brief notes on graph vocab"},
+        {skill:"S", label:"Speaking: 5 Part 1 questions + 1 Part 3 discussion (short practice)"},
+        {skill:"G", label:"Read your error sheet from Day 2 — memorize your top 3 recurring mistakes"},
+      ]},
+      { title: "Day 5 — Fri (Confidence Day)", tasks: [
+        {skill:"S", label:"Speaking: 10 Part 1 questions + 2 Cue Cards + 5 Part 3 questions — full recorded session"},
+        {skill:"S", label:"Analyze: Are you more confident and fluent than Week 4? Note improvements"},
+        {skill:"W", label:"Writing Task 2: 1 final practice essay (40 min) — use your best template"},
+        {skill:"V", label:"Anki: Final vocabulary review — focus on academic words"},
+        {skill:"G", label:"Run through all checklists (Writing / Speaking / Reading / Listening)"},
+      ]},
+      { title: "Day 6 — Sat (Pre-Exam Day)", tasks: [
+        {skill:"G", label:"Review ALL checklists one final time (Writing / Speaking / Reading / Listening / Exam Day)"},
+        {skill:"G", label:"DO NOT study anything new today — only review what you already know"},
+        {skill:"L", label:"Light: 1 Podcast or TED Talk for passive listening"},
+        {skill:"G", label:"Prepare everything for tomorrow: ID / passport / pens / water"},
+        {skill:"G", label:"Read your error sheet one last time"},
+        {skill:"G", label:"Sleep early — aim for 8 hours minimum"},
+      ]},
+      { title: "Day 7 — Sun (Full Rest)", rest: true, tasks: [
+        {skill:"G", label:"Full rest — do NOT study anything"},
+        {skill:"G", label:"Prepare clothes, bag, ID for exam day"},
+        {skill:"G", label:"Eat a good meal, drink water, relax"},
+        {skill:"G", label:"Sleep at a reasonable time — you need to be sharp tomorrow"},
+        {skill:"G", label:"Believe in yourself — you have worked for 3 months for this"},
+      ]},
+    ]
+  },
+  {
+    title: "Week 12", sub: "Exam Week", phase: 2,
+    days: [
+      { title: "Day 1 — Exam Day!", tasks: [
+        {skill:"G", label:"Wake up early — give yourself plenty of time"},
+        {skill:"G", label:"Eat a GOOD breakfast — no skipping, brain needs fuel"},
+        {skill:"G", label:"Bring: National ID / Passport + pencils + water (if allowed)"},
+        {skill:"G", label:"Arrive 30 minutes before the exam starts"},
+        {skill:"G", label:"DO NOT review notes in the waiting area — stay calm and breathe"},
+        {skill:"L", label:"Listening: Read ALL questions before audio — use the gap time"},
+        {skill:"R", label:"Reading: Skim first, keyword-scan questions before reading"},
+        {skill:"W", label:"Writing: Check both tasks against your Writing Checklist before submitting"},
+        {skill:"S", label:"Speaking: Smile, take a breath, use connectors, give detailed answers"},
+        {skill:"G", label:"Trust yourself — you worked 3 months for this. You deserve it!"},
+      ]},
+      { title: "Day 2 — Post Exam", tasks: [
+        {skill:"G", label:"Relax completely — you did your best"},
+        {skill:"G", label:"Note anything that surprised you in the exam (for future reference)"},
+        {skill:"G", label:"Do NOT obsess over what you wrote — it's done"},
+        {skill:"G", label:"Results usually come within 13 days — mark the date in your calendar"},
+      ]},
+      { title: "Days 3–7 — Wait & Celebrate", rest: true, tasks: [
+        {skill:"G", label:"Rest and recharge — you earned it"},
+        {skill:"G", label:"When results arrive: Compare with your target (6.5+)"},
+        {skill:"G", label:"If target reached: Celebrate and plan your next step"},
+        {skill:"G", label:"If not reached: Analyze gap, plan a focused 4-week resit plan"},
+        {skill:"G", label:"Either way — you grew significantly from 5.0 to where you are now"},
+      ]},
+    ]
+  }
+];
+
+let currentPhase = 0;
+let currentWeek = 0;
+let currentDay = 0;
+const checked = {};
+
+function storageKey(w, d, t) { return `ielts_w${w}_d${d}_t${t}`; }
+
+// Provide an async-like storage API compatible with the existing code (loadChecked/toggleTask)
+// Uses localStorage for persistence.
+window.storage = window.storage || {
+  async get(key) {
+    try {
+      const v = localStorage.getItem(key);
+      if (v === null) return null;
+      return { value: v };
+    } catch (e) {
+      return null;
+    }
+  },
+  async set(key, value) {
+    try {
+      localStorage.setItem(key, value);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  },
+  async delete(key) {
+    try {
+      localStorage.removeItem(key);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+};
+
+async function loadChecked() {
+  for (let w = 0; w < WEEKS.length; w++) {
+    for (let d = 0; d < WEEKS[w].days.length; d++) {
+      for (let t = 0; t < WEEKS[w].days[d].tasks.length; t++) {
+        const k = storageKey(w, d, t);
+        try {
+          const r = await window.storage.get(k);
+          if (r && r.value === '1') checked[k] = true;
+        } catch(e) {}
+      }
+    }
+  }
+  renderAll();
+}
+
+async function toggleTask(w, d, t) {
+  const k = storageKey(w, d, t);
+  checked[k] = !checked[k];
+  try {
+    if (checked[k]) await window.storage.set(k, '1');
+    else await window.storage.delete(k);
+  } catch(e) {}
+  renderAll();
+}
+
+function getWeekProgress(w) {
+  let total = 0, done = 0;
+  WEEKS[w].days.forEach((day, d) => {
+    day.tasks.forEach((t, ti) => {
+      total++;
+      if (checked[storageKey(w, d, ti)]) done++;
+    });
+  });
+  return {total, done, pct: total ? Math.round(done/total*100) : 0};
+}
+
+function setPhase(p) {
+  currentPhase = p;
+  document.querySelectorAll('.phase-btn').forEach((b,i) => b.classList.toggle('active', i===p));
+  const firstWeek = WEEKS.findIndex(w => w.phase === p);
+  currentWeek = firstWeek >= 0 ? firstWeek : 0;
+  currentDay = 0;
+  renderAll();
+}
+
+function setWeek(w) { currentWeek = w; currentDay = 0; renderAll(); }
+function setDay(d) { currentDay = d; renderDay(); }
+
+function renderAll() {
+  renderStats();
+  renderWeekGrid();
+  renderDay();
+}
+
+function renderStats() {
+  let total = 0, done = 0, fullWeeks = 0;
+  WEEKS.forEach((w, wi) => {
+    const p = getWeekProgress(wi);
+    total += p.total; done += p.done;
+    if (p.pct === 100) fullWeeks++;
+  });
+  document.getElementById('total-done').textContent = done;
+  document.getElementById('total-pct').textContent = total ? Math.round(done/total*100)+'%' : '0%';
+  document.getElementById('weeks-done').textContent = fullWeeks;
+  document.getElementById('streak').textContent = calcStreak();
+}
+
+function calcStreak() {
+  let streak = 0;
+  for (let w = WEEKS.length-1; w >= 0; w--) {
+    for (let d = WEEKS[w].days.length-1; d >= 0; d--) {
+      const day = WEEKS[w].days[d];
+      if (day.rest) continue;
+      const allDone = day.tasks.every((t, ti) => checked[storageKey(w, d, ti)]);
+      if (allDone && day.tasks.length > 0) streak++;
+      else if (streak > 0) return streak;
+    }
+  }
+  return streak;
+}
+
+function renderWeekGrid() {
+  const filtered = WEEKS.map((w, i) => ({...w, idx: i})).filter(w => w.phase === currentPhase);
+  const grid = document.getElementById('week-grid');
+  grid.innerHTML = filtered.map(w => {
+    const p = getWeekProgress(w.idx);
+    return `<div class="week-card ${w.idx === currentWeek ? 'active' : ''}" onclick="setWeek(${w.idx})">
+      <div class="week-title">${w.title}</div>
+      <div class="week-sub">${w.sub}</div>
+      <div class="prog-bar"><div class="prog-fill" style="width:${p.pct}%"></div></div>
+      <div class="prog-label">${p.done}/${p.total} tasks · ${p.pct}%</div>
+    </div>`;
+  }).join('');
+}
+
+function renderDay() {
+  const week = WEEKS[currentWeek];
+  const view = document.getElementById('day-view');
+  const skillColors = {L:'badge-l', R:'badge-r', W:'badge-w', S:'badge-s', V:'badge-v', G:'badge-g'};
+  const skillNames = {L:'Listening', R:'Reading', W:'Writing', S:'Speaking', V:'Vocabulary', G:'General'};
+
+  const dayTabs = week.days.map((d, i) => {
+    const allDone = d.tasks.length > 0 && d.tasks.every((t, ti) => checked[storageKey(currentWeek, i, ti)]);
+    const cls = i === currentDay ? 'active' : allDone ? 'done' : d.rest ? 'rest' : '';
+    return `<button class="day-btn ${cls}" onclick="setDay(${i})">${d.title.split(' — ')[0]}</button>`;
+  }).join('');
+
+  const day = week.days[currentDay];
+  const doneTasks = day.tasks.filter((t, ti) => checked[storageKey(currentWeek, currentDay, ti)]).length;
+
+  if (day.rest && day.title.includes('Rest')) {
+    const taskHtml = day.tasks.map((t, ti) => {
+      const k = storageKey(currentWeek, currentDay, ti);
+      const isDone = !!checked[k];
+      return `<div class="task-item">
+        <input type="checkbox" id="t${ti}" ${isDone ? 'checked' : ''} onchange="toggleTask(${currentWeek},${currentDay},${ti})">
+        <label class="task-label ${isDone ? 'checked' : ''}" for="t${ti}">
+          <span class="skill-badge ${skillColors[t.skill]}">${skillNames[t.skill]}</span>
+          ${t.label}
+        </label>
+      </div>`;
+    }).join('');
+    view.innerHTML = `<div class="day-tabs">${dayTabs}</div>
+      <div class="day-header">
+        <div class="day-title">${day.title} — ${week.title}</div>
+        <div class="day-progress">${doneTasks}/${day.tasks.length} done</div>
+      </div>
+      <div class="task-section">
+        <h4>Rest day tasks</h4>
+        ${taskHtml}
+      </div>`;
+    return;
+  }
+
+  const groups = {};
+  day.tasks.forEach((t, ti) => {
+    if (!groups[t.skill]) groups[t.skill] = [];
+    groups[t.skill].push({...t, ti});
+  });
+
+  const sectionsHtml = Object.entries(groups).map(([skill, tasks]) => {
+    const tasksHtml = tasks.map(t => {
+      const k = storageKey(currentWeek, currentDay, t.ti);
+      const isDone = !!checked[k];
+      return `<div class="task-item">
+        <input type="checkbox" id="t${t.ti}" ${isDone ? 'checked' : ''} onchange="toggleTask(${currentWeek},${currentDay},${t.ti})">
+        <label class="task-label ${isDone ? 'checked' : ''}" for="t${t.ti}">${t.label}</label>
+      </div>`;
+    }).join('');
+    return `<div class="task-section">
+      <h4><span class="skill-badge ${skillColors[skill]}">${skillNames[skill]}</span></h4>
+      ${tasksHtml}
+    </div>`;
+  }).join('');
+
+  view.innerHTML = `<div class="day-tabs">${dayTabs}</div>
+    <div class="day-header">
+      <div class="day-title">${day.title} — ${week.title}</div>
+      <div class="day-progress">${doneTasks}/${day.tasks.length} done</div>
+    </div>
+    ${sectionsHtml}`;
+}
+
+loadChecked();
+</script>

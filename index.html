@@ -1,0 +1,1913 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IELTS Success - محمد رضا</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&family=Almarai:wght@300;400;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+:root {
+      --img: none;
+
+      /* ===== Theme palette (deep-ink base + teal/aquamarine + brass accents) ===== */
+      --bg: #0b1220;
+      --panel: rgba(14, 22, 38, .66);
+      --panel-2: rgba(14, 22, 38, .52);
+
+      --text: #eaf3ff;
+      --muted: rgba(234, 243, 255, .72);
+
+      --line: rgba(110, 150, 190, .18);
+      --line-strong: rgba(110, 150, 190, .28);
+
+      --teal: #14b8a6;
+      --aqua: #67e8f9;
+      --cyan-2: #a5f3fc;
+
+      --brass: #d8a15b;
+      --brass-2: rgba(216, 161, 91, .35);
+
+      --blue: #3b82f6;
+
+      --green: #22c55e;
+      --amber: #fbbf24;
+      --red: #fb7185;
+      --violet: #a78bfa;
+
+      --shadow: 0 26px 70px rgba(0,0,0,.35);
+      --glow: 0 0 0 1px rgba(20, 184, 166, .22);
+
+      --radius: 16px;
+
+      /* spacing tokens */
+      --space-1: 6px;
+      --space-2: 10px;
+      --space-3: 14px;
+      --space-4: 18px;
+      --space-5: 24px;
+
+      /* motion default */
+      --ease-soft: cubic-bezier(.2,.85,.2,1);
+    }
+
+    /* ===== Light Mode Override ===== */
+    body:not([data-theme="dark"]) {
+      --bg: #f4f7fb;
+      --panel: rgba(255, 255, 255, .74);
+      --panel-2: rgba(255, 255, 255, .58);
+
+      --text: #0a1621;
+      --muted: rgba(10, 22, 33, .68);
+
+      --line: rgba(27, 61, 84, .16);
+      --line-strong: rgba(27, 61, 84, .24);
+
+      --teal: #0ea5e9;
+      --aqua: #14b8a6;
+      --cyan-2: #67e8f9;
+
+      --brass: #c28a3a;
+      --brass-2: rgba(194, 138, 58, .28);
+
+      --shadow: 0 20px 60px rgba(14, 28, 60, .14);
+      --glow: 0 0 0 1px rgba(20, 184, 166, .16);
+    }
+
+    /* ===== Dark Mode Override ===== */
+    body[data-theme="dark"] {
+      --bg: #07111f;
+      --panel: rgba(10, 18, 35, .76);
+      --panel-2: rgba(10, 18, 35, .60);
+
+      --text: #f3f7ff;
+      --muted: rgba(220, 230, 250, .82);
+
+      --line: rgba(120, 140, 175, .20);
+      --line-strong: rgba(94, 234, 212, .20);
+
+      --teal: #14b8a6;
+      --aqua: #67e8f9;
+      --cyan-2: #bff8ea;
+
+      --brass: #d8a15b;
+      --brass-2: rgba(216, 161, 91, .35);
+
+      --shadow: 0 20px 60px rgba(0, 0, 0, .50);
+      --glow: 0 0 0 1px rgba(59, 215, 204, .10);
+    }
+
+
+
+
+    /* Removed hero image */
+
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Almarai', 'Cairo', Tahoma, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    /* Nautilus Editorial background: contour rings + brass-teal glints + film grain */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+
+      background:
+        /* contour rings */
+        radial-gradient(circle at 12% 18%, rgba(103, 232, 249, .18) 0 1px, transparent 2px 16px),
+        radial-gradient(circle at 65% 8%, rgba(216, 161, 91, .20) 0 1px, transparent 2px 18px),
+        radial-gradient(circle at 78% 72%, rgba(20, 184, 166, .16) 0 1px, transparent 2px 20px),
+        /* subtle ring strokes */
+        repeating-radial-gradient(circle at 52% 22%, rgba(103, 232, 249, .09) 0 1px, transparent 1px 9px),
+        repeating-radial-gradient(circle at 28% 62%, rgba(216, 161, 91, .07) 0 1px, transparent 1px 12px),
+        /* teal/brass glints */
+        conic-gradient(from 220deg at 55% 25%, rgba(20, 184, 166, .10), rgba(216, 161, 91, .08), rgba(20, 184, 166, .10));
+
+      opacity: .95;
+      filter: saturate(1.02);
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+
+      /* film grain via layered gradients (no assets) */
+      background:
+        repeating-linear-gradient(0deg, rgba(255,255,255,.03), rgba(255,255,255,.03) 1px, transparent 1px, transparent 3px),
+        repeating-linear-gradient(90deg, rgba(255,255,255,.02), rgba(255,255,255,.02) 1px, transparent 1px, transparent 3px),
+        radial-gradient(circle at 30% 20%, rgba(255,255,255,.045), transparent 42%);
+      mix-blend-mode: overlay;
+      opacity: .22;
+    }
+
+
+    /* IELTS 12-week tracker (iframe) */
+    .tw-tracker-iframe{
+      width: 100%;
+      height: 1200px;
+      border: 0;
+      border-radius: 12px;
+      background: transparent;
+      display: block;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+    }
+
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    /* Stagger animation delays without inline styles */
+    .d-0 { --d: 0ms; }
+    .d-120 { --d: 120ms; }
+    .d-220 { --d: 220ms; }
+    .d-280 { --d: 280ms; }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      width: min(1120px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 24px 0 56px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.35fr .65fr;
+      gap: 20px;
+      align-items: stretch;
+      padding: 30px 0 22px;
+    }
+
+    .hero-main,
+    .hero-side,
+    .panel,
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+      border-radius: var(--radius);
+    }
+
+    .hero-main {
+      padding: clamp(24px, 5vw, 46px);
+      border-radius: var(--radius);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-main::after {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      background: radial-gradient(circle at 20% 10%, rgba(34, 211, 238, .12), transparent 40%),
+                  radial-gradient(circle at 80% 0%, rgba(59, 130, 246, .10), transparent 45%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero-visual {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 560px;
+      margin: 0 0 18px;
+      opacity: .95;
+    }
+
+    .hero-visual img {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+      border-radius: calc(var(--radius) - 2px);
+      border: 1px solid rgba(34, 211, 238, .22);
+      box-shadow: 0 24px 70px rgba(0,0,0,.35);
+      display: block;
+      filter: saturate(1.05) contrast(1.03);
+    }
+
+    .hero-visual::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border-radius: calc(var(--radius) - 2px);
+      background: linear-gradient(180deg, rgba(34, 211, 238, .18), transparent 55%);
+      mix-blend-mode: screen;
+    }
+
+
+
+    /* Display Arabic for headings (Nautilus Editorial) */
+    @supports (font-variation-settings: normal) {
+      /* no-op; just keeps block valid in modern browsers */
+    }
+
+    :where(h1, h2, h3, .section-title, .label, .priority, .phase-title) {
+      font-family: 'Almarai', 'Cairo', Tahoma, sans-serif;
+      font-optical-sizing: auto;
+      letter-spacing: -.01em;
+    }
+
+    /* optional heavier display treatment for section titles */
+    .section-title {
+      font-family: 'Almarai', 'Cairo', Tahoma, sans-serif;
+      font-weight: 900;
+      text-transform: none;
+    }
+
+    .eyebrow {
+
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      color: var(--cyan);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1 {
+      margin-top: 14px;
+      font-size: clamp(30px, 6vw, 58px);
+      line-height: 1.06;
+      font-weight: 900;
+      letter-spacing: -.02em;
+    }
+
+
+    .hero-main p {
+      max-width: 720px;
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.85;
+    }
+
+    .hero-side {
+      border-radius: var(--radius);
+      padding: 22px;
+      display: grid;
+      align-content: center;
+      gap: 16px;
+      background: rgba(18, 26, 50, .55);
+    }
+
+    .target-number {
+      display: grid;
+      place-items: center;
+      width: 132px;
+      aspect-ratio: 1;
+      margin: 0 auto;
+      border-radius: 50%;
+      background: conic-gradient(var(--cyan) 0 70%, var(--line) 70% 100%);
+      position: relative;
+      isolation: isolate;
+    }
+
+    .target-number::after {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border-radius: 50%;
+      background: var(--panel-2);
+      z-index: -1;
+    }
+
+    .target-number strong {
+      font-size: 44px;
+      line-height: 1;
+    }
+
+    .target-copy {
+      text-align: center;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .nav-tabs {
+      position: sticky;
+      top: 0;
+      z-index: 6;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 12px 0;
+      background: color-mix(in oklab, var(--bg) 68%, rgba(255,255,255,.05));
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-tab[aria-selected="true"] {
+      border-color: rgba(216, 161, 91, .65);
+      box-shadow: 0 0 0 2px rgba(216, 161, 91, .16), var(--shadow);
+      background:
+        linear-gradient(180deg, rgba(216, 161, 91, .15), rgba(255,255,255,0) 70%),
+        var(--panel-2);
+      color: var(--text);
+    }
+
+    .nav-tab[aria-selected="false"] {
+      border-color: var(--line);
+      background: var(--panel-2);
+    }
+
+
+    .nav-tab,
+    .week-tab,
+    .icon-button {
+      border: 1px solid var(--line);
+      background: var(--panel-2);
+      color: var(--muted);
+      cursor: pointer;
+      transition: .18s ease;
+    }
+
+    .nav-tab {
+      flex: 0 0 auto;
+      min-height: 42px;
+      border-radius: 12px;
+      padding: 8px 14px;
+      font-weight: 900;
+      white-space: nowrap;
+      box-shadow: 0 10px 30px rgba(0,0,0,.14);
+    }
+
+
+    .nav-tab:hover,
+    .nav-tab.active,
+    .week-tab:hover,
+    .week-tab.active,
+    .icon-button:hover {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: white;
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; animation: fadeIn .28s cubic-bezier(.2,.9,.2,1); }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    body:not([data-reduce-motion="true"]) .reveal {
+      animation: revealUp .6s cubic-bezier(.2,.85,.2,1) both;
+      animation-delay: var(--d, 0ms);
+    }
+
+    @keyframes revealUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 32px 0 14px;
+      font-size: 22px;
+    }
+
+.section-title span {
+      display: grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: rgba(76, 163, 255, .10);
+      border: 1px solid rgba(76, 163, 255, .25);
+      font-size: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.18);
+    }
+
+    .score-grid,
+    .today-grid,
+    .skills-grid,
+    .resources-grid,
+    .checklist-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .score-grid {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .today-panel {
+      margin: 14px 0 8px;
+    }
+
+    .today-grid {
+      grid-template-columns: .85fr 1.15fr;
+      align-items: start;
+    }
+
+    .today-controls {
+      display: grid;
+      gap: 12px;
+    }
+
+    .field-label {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    button,
+    select {
+      font: inherit;
+    }
+
+    select {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(13, 22, 38, .55);
+      color: var(--text);
+      padding: 8px 12px;
+      outline: none;
+      box-shadow: var(--glow);
+    }
+
+    select:focus-visible {
+      border-color: rgba(34, 211, 238, .8);
+      box-shadow: 0 0 0 3px rgba(34, 211, 238, .18), var(--glow);
+    }
+
+
+    .action-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .small-button {
+      min-height: 38px;
+      border: 1px solid rgba(40, 54, 79, .75);
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(23, 34, 53, .8), rgba(13, 22, 38, .65));
+      color: var(--text);
+      padding: 7px 14px;
+      cursor: pointer;
+      font-weight: 900;
+      letter-spacing: .01em;
+      box-shadow: 0 10px 30px rgba(0,0,0,.18);
+      transition: transform .16s ease, border-color .16s ease, background .16s ease, box-shadow .16s ease;
+    }
+
+    .small-button:hover {
+      transform: translateY(-1px);
+      border-color: rgba(61, 218, 208, .55);
+      box-shadow: 0 16px 40px rgba(0,0,0,.25);
+      background: linear-gradient(180deg, rgba(78, 163, 255, .38), rgba(61, 218, 208, .10));
+    }
+
+    .small-button:focus-visible,
+    .nav-tab:focus-visible,
+    .week-tab:focus-visible,
+    button:focus-visible {
+      outline: none;
+      border-color: rgba(34, 211, 238, .85);
+      box-shadow: 0 0 0 3px rgba(34, 211, 238, .18), var(--glow);
+    }
+
+
+    .progress-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: baseline;
+      margin-bottom: 10px;
+    }
+
+    .progress-head strong {
+      font-size: 18px;
+    }
+
+    .today-checks {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px 14px;
+      margin-top: 14px;
+    }
+
+    .today-check {
+      display: grid;
+      grid-template-columns: 20px 1fr;
+      gap: 8px;
+      align-items: start;
+      color: var(--muted);
+      line-height: 1.45;
+      cursor: pointer;
+    }
+
+    .today-check input {
+      width: 17px;
+      height: 17px;
+      margin-top: 2px;
+      accent-color: var(--green);
+    }
+
+    .today-check:has(input:checked) {
+      color: #6f8099;
+      text-decoration: line-through;
+    }
+
+    .skills-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .resources-grid,
+    .checklist-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .card,
+    .panel {
+      border-radius: 12px;
+      padding: 18px;
+    }
+
+
+    .score-card {
+      text-align: center;
+    }
+
+    .label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .score {
+      margin-top: 8px;
+      font-size: 34px;
+      font-weight: 900;
+    }
+
+    .goal {
+      color: var(--green);
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .bar {
+      height: 7px;
+      margin-top: 14px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: var(--line);
+    }
+
+    .bar i {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--blue), var(--cyan));
+    }
+
+    .score-width-64 { width: 64%; }
+    .score-width-71 { width: 71%; }
+
+    .priority {
+      display: inline-block;
+      margin: 10px 0;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .priority.high {
+      color: #fecaca;
+      background: rgba(239, 68, 68, .15);
+      border: 1px solid rgba(239, 68, 68, .35);
+    }
+
+    .priority.mid {
+      color: #fde68a;
+      background: rgba(245, 158, 11, .15);
+      border: 1px solid rgba(245, 158, 11, .35);
+    }
+
+    .muted {
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .phase {
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+
+    .phase-head {
+      width: 100%;
+      display: grid;
+      grid-template-columns: auto 1fr auto auto;
+      gap: 14px;
+      align-items: center;
+      padding: 18px;
+      border: 0;
+      background: transparent;
+      color: var(--text);
+      text-align: start;
+      cursor: pointer;
+    }
+
+    .phase-num {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      font-weight: 900;
+      font-size: 20px;
+    }
+
+    .phase h3 {
+      margin-bottom: 4px;
+      font-size: 18px;
+    }
+
+    .phase-title {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 18px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      border-radius: 999px;
+      padding: 4px 10px;
+      background: rgba(34, 211, 238, .1);
+      color: #bdf5ff;
+      border: 1px solid rgba(34, 211, 238, .25);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .phase-body {
+      display: none;
+      padding: 0 18px 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    .phase.open .phase-body { display: block; }
+    .phase.open .chevron { transform: rotate(180deg); }
+    .chevron { transition: transform .18s ease; }
+
+    .phase.current-phase {
+      border-color: rgba(34, 211, 238, .75);
+      box-shadow: 0 0 0 1px rgba(34, 211, 238, .2), var(--shadow);
+    }
+
+    .week-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 16px 0 12px;
+    }
+
+    .week-tab {
+      min-height: 36px;
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-weight: 700;
+    }
+
+    .week-tab.current-week {
+      box-shadow: 0 0 0 2px rgba(245, 158, 11, .5);
+      color: white;
+    }
+
+    .week-content { display: none; }
+    .week-content.active { display: block; }
+
+    .day-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .day {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 12px;
+      padding: 14px;
+      border-radius: 8px;
+      background: var(--panel-2);
+      border: 1px solid var(--line);
+    }
+
+    .day-num {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: var(--blue);
+      font-weight: 900;
+    }
+
+    .rest-day { opacity: .72; }
+
+    .rest-day .day-num {
+      background: var(--panel);
+      color: var(--muted);
+    }
+
+    .tasks {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .routine {
+      display: grid;
+      gap: 10px;
+    }
+
+    .routine-row {
+      display: grid;
+      grid-template-columns: 120px 90px 1fr;
+      gap: 12px;
+      align-items: center;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+    }
+
+    .time {
+      direction: ltr;
+      text-align: center;
+      color: var(--cyan);
+      font-weight: 800;
+    }
+
+    .duration {
+      color: var(--amber);
+      font-weight: 800;
+    }
+
+    .resource-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(159, 176, 199, .18);
+    }
+
+    .resource-item:last-child { border-bottom: 0; }
+
+    a {
+      color: var(--cyan);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    a:hover { text-decoration: underline; }
+
+    .check-item {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 10px;
+      padding: 9px 0;
+      cursor: pointer;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .check-item input {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--green);
+      margin-top: 3px;
+    }
+
+    .check-item:has(input:checked) {
+      color: #6f8099;
+      text-decoration: line-through;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 760px;
+    }
+
+    th,
+    td {
+      border-bottom: 1px solid rgba(40, 54, 79, .55);
+      padding: 12px 14px;
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    th {
+      color: rgba(159, 176, 199, .98);
+      background: linear-gradient(180deg, rgba(23, 34, 53, .95), rgba(13, 22, 38, .6));
+      font-size: 13px;
+      letter-spacing: .02em;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+
+    td:first-child,
+    th:first-child {
+      text-align: right;
+    }
+
+    td input {
+      width: 72px;
+      padding: 6px 8px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #0d1626;
+      color: var(--text);
+      text-align: center;
+    }
+
+    .footer-note {
+      margin-top: 50px;
+      padding: 26px;
+      border-radius: 8px;
+      border: 1px solid rgba(34, 211, 238, .3);
+      background: rgba(34, 211, 238, .08);
+      text-align: center;
+    }
+
+    .footer-note strong {
+      display: block;
+      margin-bottom: 12px;
+      font-size: 28px;
+    }
+
+    /* Status Indicator */
+    #sync-status {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      background: var(--panel-2);
+      border: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 100;
+    }
+
+    #status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      transition: background 0.3s ease;
+    }
+
+    .card:hover, .panel:hover {
+      border-color: var(--line);
+      box-shadow: 0 22px 55px rgba(0,0,0,.22);
+      transform: translateY(-2px);
+    }
+
+    @supports (color: color-mix(in oklab, var(--cyan) 55%, var(--line) 45%)) {
+      .card:hover, .panel:hover {
+        border-color: color-mix(in oklab, var(--cyan) 55%, var(--line) 45%);
+      }
+    }
+
+
+
+
+
+    @media (max-width: 860px) {
+        .hero,
+      .score-grid,
+      .today-grid,
+      .skills-grid,
+      .resources-grid,
+      .checklist-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .hero-visual img { height: 130px; }
+
+
+      .hero-main { grid-column: 1 / -1; }
+      .hero-side { grid-column: 1 / -1; }
+    }
+
+    @media (max-width: 620px) {
+      .container { width: min(100% - 20px, 1120px); }
+      .hero,
+      .score-grid,
+      .today-grid,
+      .today-checks,
+      .skills-grid,
+      .resources-grid,
+      .checklist-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .phase-head {
+        grid-template-columns: auto 1fr auto;
+      }
+
+      .phase-head .pill { grid-column: 2 / -1; width: max-content; }
+
+      .routine-row {
+        grid-template-columns: 1fr;
+        gap: 5px;
+      }
+
+      .time { text-align: right; }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <section class="hero reveal d-0" aria-labelledby="page-title">
+      <div class="hero-main">
+
+
+        <span class="eyebrow">IELTS Study Plan</span>
+        <h1 id="page-title">
+        <p>من Overall 5.0 إلى هدف 6.5 / 7.0 خلال 12 أسبوعا. آخر امتحان: 4 مايو 2026. الخطة مقسمة إلى مراحل واضحة، مع روتين يومي، مصادر، قوائم متابعة، وجدول درجات قابل للتعديل.</p>
+      </div>
+      <aside class="hero-side" aria-label="الهدف النهائي">
+        <div class="target-number"><strong>7.0</strong></div>
+        <p class="target-copy">Band 6.5 / 7.0 خلال 2 إلى 3 أشهر<br>6 أيام مذاكرة في الأسبوع، والجمعة راحة.</p>
+      </aside>
+    </section>
+
+    <nav class="nav-tabs reveal d-120" aria-label="أقسام الخطة">
+      <div role="tablist" aria-label="أقسام الخطة" class="nav-tablist">
+
+
+
+      <button class="nav-tab active" type="button" data-tab="overview" role="tab" aria-selected="true" aria-controls="tab-overview">النتائج والأهداف</button>
+      <button class="nav-tab" type="button" data-tab="roadmap" role="tab" aria-selected="false" aria-controls="tab-roadmap">الخطة التفصيلية</button>
+      <button class="nav-tab" type="button" data-tab="resources" role="tab" aria-selected="false" aria-controls="tab-resources">المصادر</button>
+      <button class="nav-tab" type="button" data-tab="routine" role="tab" aria-selected="false" aria-controls="tab-routine">الروتين اليومي</button>
+      <button class="nav-tab" type="button" data-tab="checklists" role="tab" aria-selected="false" aria-controls="tab-checklists">قوائم التحقق</button>
+      <button class="nav-tab" type="button" data-tab="tracker" role="tab" aria-selected="false" aria-controls="tab-tracker">متابعة التقدم</button>
+      <button class="nav-tab" type="button" data-tab="twelveweek" role="tab" aria-selected="false" aria-controls="tab-twelveweek">متابعة 12 أسبوع</button>
+      </div>
+
+      <button class="small-button" type="button" id="theme-toggle" aria-label="تبديل الوضع" aria-pressed="false">الوضع: أبيض</button>
+    </nav>
+
+    <section class="panel today-panel reveal d-220" aria-labelledby="today-title">
+
+      <div class="today-grid">
+        <div class="today-controls">
+          <div>
+            <label class="field-label" for="current-week">الأسبوع الحالي</label>
+            <select id="current-week"></select>
+          </div>
+          <div>
+            <label class="field-label" for="current-day">اليوم داخل الأسبوع</label>
+            <select id="current-day"></select>
+          </div>
+          <div class="action-row">
+            <button class="small-button" type="button" id="open-current-week">افتح الأسبوع</button>
+            <button class="small-button" type="button" id="reset-today">ابدأ يوم جديد</button>
+          </div>
+          <p class="muted" id="current-week-note">اختار الأسبوع اللي أنت فيه عشان يتعلم في الخطة.</p>
+        </div>
+
+        <div>
+          <div class="progress-head">
+            <strong id="today-title">Today Checklist</strong>
+            <span class="muted" id="today-progress-text">0 من 6</span>
+          </div>
+          <div class="bar" aria-hidden="true"><i id="today-progress-bar"></i></div>
+          <div class="today-checks" id="today-checks"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-overview" class="tab-panel active reveal d-280" role="tabpanel" aria-labelledby="tab-overview-tab">
+
+
+      <h2 class="section-title"><span>🎯</span>نتيجتك الحالية مقابل الهدف</h2>
+      <div class="score-grid">
+        <article class="card score-card">
+          <div class="label">Listening</div>
+          <div class="score">5.0</div>
+          <div class="goal">6.5+</div>
+          <div class="bar"><i class="score-width-71"></i></div>
+        </article>
+        <article class="card score-card">
+          <div class="label">Reading</div>
+          <div class="score">4.5</div>
+          <div class="goal">6.0+</div>
+          <div class="bar"><i class="score-width-64"></i></div>
+        </article>
+        <article class="card score-card">
+          <div class="label">Writing</div>
+          <div class="score">5.0</div>
+          <div class="goal">6.5+</div>
+          <div class="bar"><i class="score-width-71"></i></div>
+        </article>
+        <article class="card score-card">
+          <div class="label">Speaking</div>
+          <div class="score">4.5</div>
+          <div class="goal">6.0+</div>
+          <div class="bar"><i class="score-width-64"></i></div>
+        </article>
+        <article class="card score-card">
+          <div class="label">Overall</div>
+          <div class="score">5.0</div>
+          <div class="goal">6.5+</div>
+          <div class="bar"><i class="score-width-71"></i></div>
+        </article>
+      </div>
+
+      <div class="panel">
+        <p class="muted"><strong>آخر امتحان:</strong> 4 مايو 2026 | <strong>الوقت المتاح:</strong> 2 - 3 أشهر | <strong>الهدف:</strong> Band 6.5 / 7.0</p>
+      </div>
+
+      <h2 class="section-title"><span>🗺️</span>Road Map - الخريطة الزمنية</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>المرحلة</th>
+              <th>الأسابيع</th>
+              <th>الهدف الرئيسي</th>
+              <th>المخرجات</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>المرحلة 1</td>
+              <td>أسبوع 1 - 4</td>
+              <td>بناء الأساس اللغوي: Grammar + Vocabulary</td>
+              <td>قواعد سليمة + 400 كلمة جديدة</td>
+            </tr>
+            <tr>
+              <td>المرحلة 2</td>
+              <td>أسبوع 5 - 8</td>
+              <td>تطوير مهارات IELTS الأربعة بالتفصيل</td>
+              <td>إتقان strategies لكل مهارة</td>
+            </tr>
+            <tr>
+              <td>المرحلة 3</td>
+              <td>أسبوع 9 - 12</td>
+              <td>Mock Tests + تصحيح أخطاء + تثبيت</td>
+              <td>درجة مستقرة عند 6.5+</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 class="section-title"><span>⚡</span>أولويات المهارات</h2>
+      <div class="skills-grid">
+        <article class="card">
+          <h3>Reading</h3>
+          <span class="priority high">أولوية عالية جدا</span>
+          <p class="muted">أضعف درجة حاليا، وأكبر فرصة للتحسن السريع باستخدام skimming, scanning, keyword matching.</p>
+        </article>
+        <article class="card">
+          <h3>Speaking</h3>
+          <span class="priority high">أولوية عالية جدا</span>
+          <p class="muted">التسجيل اليومي والتحليل السريع سيحسن fluency, pronunciation, coherence.</p>
+        </article>
+        <article class="card">
+          <h3>Writing</h3>
+          <span class="priority mid">أولوية متوسطة</span>
+          <p class="muted">اعتمد على templates واضحة، وتصحيح يومي، وقائمة أخطاء متكررة.</p>
+        </article>
+        <article class="card">
+          <h3>Listening</h3>
+          <span class="priority mid">أولوية متوسطة</span>
+          <p class="muted">ركز على Section 3 & 4، spelling، وقراءة الأسئلة قبل الصوت.</p>
+        </article>
+      </div>
+
+      <h2 class="section-title"><span>🏆</span>القواعد الذهبية</h2>
+      <div class="panel">
+        <p class="muted">اكتب Writing كل يوم - مفيش يوم بدون كتابة. سجل صوتك كل يوم. استخدم Cambridge Books فقط للـ Practice. وقت نفسك دائما لأن IELTS عنده Time Pressure حقيقي. افهم الأخطاء مش بس تشوف الإجابة الصح. أغلق الموبايل وقت المذاكرة تماما.</p>
+      </div>
+    </section>
+
+    <section id="tab-roadmap" class="tab-panel">
+      <h2 class="section-title"><span>🗺️</span>الخريطة الزمنية - 12 أسبوع</h2>
+      <div id="roadmap"></div>
+    </section>
+
+    <section id="tab-routine" class="tab-panel">
+      <h2 class="section-title"><span>⏱️</span>الروتين اليومي - 3.5 ساعة</h2>
+      <div class="routine">
+        <div class="routine-row"><div class="time">06:00 - 06:30</div><div class="duration">30 د</div><div><strong>Vocabulary</strong><p class="muted">15 كلمة + Anki + مراجعة كلمات أمس.</p></div></div>
+        <div class="routine-row"><div class="time">06:30 - 07:30</div><div class="duration">60 د</div><div><strong>Reading</strong><p class="muted">Passage كامل بالوقت + تحليل أخطاء.</p></div></div>
+        <div class="routine-row"><div class="time">07:30 - 08:15</div><div class="duration">45 د</div><div><strong>Speaking</strong><p class="muted">سجل صوتك: Part 1 + Part 2 يوميا بدون استثناء.</p></div></div>
+        <div class="routine-row"><div class="time">08:15 - 09:00</div><div class="duration">45 د</div><div><strong>Writing</strong><p class="muted">Task 1 يوم / Task 2 يوم بالتناوب ثم تصحيح على writeandimprove.com.</p></div></div>
+        <div class="routine-row"><div class="time">09:00 - 09:30</div><div class="duration">30 د</div><div><strong>Listening</strong><p class="muted">Section من Cambridge 14-17 مع تركيز خاص على Section 3 & 4.</p></div></div>
+      </div>
+    </section>
+
+    <section id="tab-resources" class="tab-panel">
+      <h2 class="section-title"><span>📚</span>المصادر</h2>
+      <div class="resources-grid">
+        <article class="card">
+          <h3>الكتب الأساسية</h3>
+          <div class="resource-item"><span>Grammar for IELTS - Cambridge</span><span class="pill">مرحلة 1</span></div>
+          <div class="resource-item"><span>Vocabulary for IELTS - Cambridge</span><span class="pill">مرحلة 1</span></div>
+          <div class="resource-item"><span>Get Ready for IELTS - 4 Books</span><span class="pill">مرحلة 1-2</span></div>
+          <div class="resource-item"><span>Cambridge IELTS 14</span><span class="pill">بداية Practice</span></div>
+        </article>
+        <article class="card">
+          <h3>اختبارات ومهارات</h3>
+          <div class="resource-item"><span>Cambridge IELTS 15 & 16</span><span class="pill">مرحلة 2-3</span></div>
+          <div class="resource-item"><span>Cambridge IELTS 17</span><span class="pill">Mock Tests</span></div>
+          <div class="resource-item"><span>Ideas for IELTS - 24 Topics</span><span class="pill">Writing/Speaking</span></div>
+          <div class="resource-item"><span>Collins Listening/Reading/Speaking</span><span class="pill">Advanced</span></div>
+        </article>
+        <article class="card">
+          <h3>أدوات مجانية</h3>
+          <div class="resource-item"><span>Anki App</span><span class="pill">Vocabulary</span></div>
+          <div class="resource-item"><span>writeandimprove.com</span><span class="pill">Writing</span></div>
+          <div class="resource-item"><span>ELSA Speak</span><span class="pill">Pronunciation</span></div>
+          <div class="resource-item"><span>BBC Learning English</span><span class="pill">Listening</span></div>
+          <div class="resource-item"><span>awlquizzes.com</span><span class="pill">AWL</span></div>
+          <div class="resource-item"><span>perfect-english-grammar.com</span><span class="pill">Grammar</span></div>
+          <div class="resource-item"><span>ChatGPT</span><span class="pill">Writing/Speaking</span></div>
+        </article>
+        <article class="card">
+          <h3>قنوات وتدريب</h3>
+          <div class="resource-item"><span>IELTS Liz - YouTube</span><span class="pill">مجاني</span></div>
+          <div class="resource-item"><span>IELTS Simon</span><span class="pill">Writing</span></div>
+          <div class="resource-item"><span>E2 IELTS - YouTube</span><span class="pill">Strategies</span></div>
+          <div class="resource-item"><span>Makkar for Speaking</span><span class="pill">Cue Cards</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="tab-checklists" class="tab-panel">
+      <h2 class="section-title"><span>✅</span>قوائم التحقق</h2>
+      <div class="checklist-grid">
+        <article class="card">
+          <h3>Daily Checklist</h3>
+          <label class="check-item"><input type="checkbox" data-check="daily-speaking">سجلت صوتي في Speaking اليوم</label>
+          <label class="check-item"><input type="checkbox" data-check="daily-writing">كتبت Writing: Task 1 أو Task 2</label>
+          <label class="check-item"><input type="checkbox" data-check="daily-vocab">تعلمت 15 كلمة جديدة على Anki</label>
+          <label class="check-item"><input type="checkbox" data-check="daily-listening">عملت Listening من Cambridge Books</label>
+          <label class="check-item"><input type="checkbox" data-check="daily-reading">عملت Reading من Cambridge Books</label>
+          <label class="check-item"><input type="checkbox" data-check="daily-grammar">راجعت Grammar موضوع الأسبوع</label>
+          <label class="check-item"><input type="checkbox" data-check="daily-errors">استمعت لنفسي وحددت أخطاء</label>
+          <label class="check-item"><input type="checkbox" data-check="daily-phone">قفلت الموبايل وقت المذاكرة</label>
+        </article>
+        <article class="card">
+          <h3>Writing Checklist</h3>
+          <label class="check-item"><input type="checkbox" data-check="writing-words">Task 2 أكثر من 250 كلمة / Task 1 أكثر من 150 كلمة</label>
+          <label class="check-item"><input type="checkbox" data-check="writing-repeat">مفيش كلمة متكررة أكثر من 3 مرات</label>
+          <label class="check-item"><input type="checkbox" data-check="writing-connectors">استخدمت connectors متنوعة</label>
+          <label class="check-item"><input type="checkbox" data-check="writing-sv">كل جملة فيها Subject + Verb</label>
+          <label class="check-item"><input type="checkbox" data-check="writing-spelling">راجعت spelling mistakes</label>
+          <label class="check-item"><input type="checkbox" data-check="writing-vocab">استخدمت Vocabulary متنوع ومش بسيط</label>
+          <label class="check-item"><input type="checkbox" data-check="writing-intro">Introduction واضحة وبتعرف topic</label>
+          <label class="check-item"><input type="checkbox" data-check="writing-conclusion">Conclusion بتلخص وجهة نظرك</label>
+          <label class="check-item"><input type="checkbox" data-check="writing-check">راجعت على writeandimprove.com</label>
+        </article>
+        <article class="card">
+          <h3>Speaking Checklist</h3>
+          <label class="check-item"><input type="checkbox" data-check="speaking-extend">ما بدأتش بـ Yes / No فقط، وسعت الإجابة بسبب ومثال</label>
+          <label class="check-item"><input type="checkbox" data-check="speaking-vocab">استخدمت كلمات متنوعة مش نفس الكلمات</label>
+          <label class="check-item"><input type="checkbox" data-check="speaking-part2">الكلام مستمر دقيقتين في Part 2</label>
+          <label class="check-item"><input type="checkbox" data-check="speaking-pron">النطق واضح ومش سريع جدا</label>
+          <label class="check-item"><input type="checkbox" data-check="speaking-connectors">استخدمت however / moreover / therefore</label>
+          <label class="check-item"><input type="checkbox" data-check="speaking-errors">استمعت للتسجيل وحددت 3 أخطاء</label>
+        </article>
+        <article class="card">
+          <h3>Reading Checklist</h3>
+          <label class="check-item"><input type="checkbox" data-check="reading-skim">Skimming: أول سطر من كل paragraph في 30 ثانية</label>
+          <label class="check-item"><input type="checkbox" data-check="reading-keywords">حددت keywords قبل ما أقرأ التفاصيل</label>
+          <label class="check-item"><input type="checkbox" data-check="reading-time">التزمت بالوقت: 20 دقيقة لكل passage</label>
+          <label class="check-item"><input type="checkbox" data-check="reading-tfng">True/False/Not Given: مش خلطت بين False و Not Given</label>
+          <label class="check-item"><input type="checkbox" data-check="reading-wrong">بعد التصحيح فهمت سبب كل غلطة</label>
+          <label class="check-item"><input type="checkbox" data-check="reading-limit">في fill blanks راعيت word limit</label>
+        </article>
+        <article class="card">
+          <h3>Listening Checklist</h3>
+          <label class="check-item"><input type="checkbox" data-check="listening-before">قرأت الأسئلة كلها قبل بدء الصوت</label>
+          <label class="check-item"><input type="checkbox" data-check="listening-type">حددت نوع الإجابة: اسم / فعل / رقم</label>
+          <label class="check-item"><input type="checkbox" data-check="listening-write">كتبت إجابة دائما حتى لو مش متأكد</label>
+          <label class="check-item"><input type="checkbox" data-check="listening-flow">ما توقفتش وأنا بسمع</label>
+          <label class="check-item"><input type="checkbox" data-check="listening-spell">راجعت spelling بعد Section 1 & 2</label>
+          <label class="check-item"><input type="checkbox" data-check="listening-repeat">بعد التصحيح سمعت تاني للأجزاء الغلط</label>
+        </article>
+        <article class="card">
+          <h3>Exam Day Checklist</h3>
+          <label class="check-item"><input type="checkbox" data-check="exam-id">National ID / Passport جاهز</label>
+          <label class="check-item"><input type="checkbox" data-check="exam-early">وصلت قبل الامتحان بـ 30 دقيقة</label>
+          <label class="check-item"><input type="checkbox" data-check="exam-food">فطار كويس ومش جعان</label>
+          <label class="check-item"><input type="checkbox" data-check="exam-new">ما اتفرجتش على حاجة جديدة النهارده</label>
+          <label class="check-item"><input type="checkbox" data-check="exam-sleep">نمت 8 ساعات الليلة اللي فاتت</label>
+          <label class="check-item"><input type="checkbox" data-check="exam-place">عارف مكان اللجنة من قبل</label>
+          <label class="check-item"><input type="checkbox" data-check="exam-confidence">واثق في نفسك، اشتغلت 3 شهور</label>
+        </article>
+      </div>
+    </section>
+
+    <section id="tab-tracker" class="tab-panel">
+      <h2 class="section-title"><span>📈</span>Weekly Progress Tracker - متابعة التقدم</h2>
+      <div class="panel">
+        <p class="muted">اكتب نتيجتك كل أسبوع عشان تشوف تقدمك وتتحفز.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>الأسبوع</th>
+              <th>Overall</th>
+              <th>Listening /40</th>
+              <th>Reading /40</th>
+              <th>Writing</th>
+              <th>Speaking</th>
+              <th>ملاحظات</th>
+            </tr>
+          </thead>
+          <tbody id="tracker-body"></tbody>
+        </table>
+      </div>
+      <h2 class="section-title"><span>🎯</span>أهداف كل مرحلة</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>المرحلة</th><th>Listening</th><th>Reading</th><th>Writing</th><th>Speaking</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>البداية الآن</td><td>5.0</td><td>4.5</td><td>5.0</td><td>4.5</td></tr>
+            <tr><td>بعد الشهر 1</td><td>5.5</td><td>5.0</td><td>5.5</td><td>5.0</td></tr>
+            <tr><td>بعد الشهر 2</td><td>6.0</td><td>5.5</td><td>6.0</td><td>5.5</td></tr>
+            <tr><td>يوم الامتحان</td><td>6.5+</td><td>6.0+</td><td>6.5+</td><td>6.0+</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="tab-twelveweek" class="tab-panel" role="tabpanel">
+      <h2 class="section-title"><span>🗓️</span>متابعة 12 أسبوع</h2>
+      <div class="panel">
+          <iframe
+            src="ielts_daily_tracker.html"
+            title="IELTS 12-week daily study tracker"
+            class="tw-tracker-iframe"
+            referrerpolicy="no-referrer"
+            loading="lazy"
+          ></iframe>
+      </div>
+    </section>
+
+    <div class="footer-note">
+      <strong>الهدف: Band 7.0</strong>
+      <p class="muted">ربنا يوفقك يا محمد. ابدأ بكره مش الأسبوع الجاي.</p>
+    </div>
+
+    <div id="sync-status"><span id="status-dot"></span> <span id="status-text">متصل</span></div>
+  </main>
+
+  <script>
+    const API_URL = 'http://localhost:3000/api';
+    const phases = [
+      {
+        id: "p1",
+        number: "١",
+        title: "المرحلة الأولى - بناء الأساس اللغوي",
+        subtitle: "Grammar + Vocabulary + بداية IELTS Skills",
+        weeks: "أسبوع 1 - 4",
+        weeksData: [
+          ["أسبوع 1", "Grammar - أخطاء Tenses", [
+            ["Grammar: Present Simple vs Continuous", "Writing: 150 كلمة عن روتينك", "Listening: Cambridge 14 Test 1 Sec 1&2", "Speaking: Part 1 Daily Routine مسجل"],
+            ["Grammar: Past Simple vs Continuous vs Perfect", "Writing Task 2: Study abroad advantages/disadvantages", "Listening: Cambridge 14 Sec 3&4", "Speaking: Past Tenses تدريب"],
+            ["Grammar: Present Perfect vs Past Simple", "Writing Task 1: Line Graph", "Reading: Cambridge 14 Passage 1 - Skimming 2 د", "Speaking: Part 2 مسجل 2 دقيقة"],
+            ["Grammar: Articles a/an/the", "Writing Task 2: Free university education", "Listening: Cambridge 15 Sec 1&2", "Speaking: Part 1 مراجعة Articles"],
+            ["Grammar: Connectors although/however/despite", "Writing: راجع أخطاء الأسبوع", "Reading: Cambridge 15 Passage 2", "Vocabulary: راجع 75 كلمة Anki"],
+            ["Mini Mock: Listening Full Test Cambridge 14", "Reading: Passage 1+2+3 بالوقت", "Writing: Task 1+2", "Speaking: 15 دقيقة مسجلة"],
+            ["راحة خفيفة", "راجع أخطاء الأسبوع", "BBC Podcast 30 دقيقة", "IELTS Liz: Week 1 Tips"]
+          ]],
+          ["أسبوع 2", "Vocabulary - 100+ كلمة جديدة", [
+            ["Vocabulary: Education Words - 20 كلمة Anki", "Writing: Essay Education بدون good/bad/very", "Reading: Cambridge 14 Passage 3", "Speaking: تكلم عن مدرستك"],
+            ["Vocabulary: Health Words - 20 كلمة", "Writing Task 2: Healthcare vs Military spending", "Listening: Cambridge 15 Test 2 Sec 3&4", "Shadowing تمرين"],
+            ["Vocabulary: Environment Words - 20 كلمة", "Writing Task 1: Bar Chart CO2", "Reading: Cambridge 16 Test 1 Passage 1", "Speaking: محادثة بيئة"],
+            ["Vocabulary: Technology Words - 20 كلمة", "Writing Task 2: Technology makes people less social?", "Speaking: Technology you cannot live without مسجل"],
+            ["Vocabulary: Society & Crime Words - 20 كلمة", "Writing Task 2: Prison effectiveness", "Reading: Cambridge 16 Test 1 Passage 2", "Anki مراجعة"],
+            ["Full Vocabulary Mock", "اكتب Essay عن موضوع مجهول واستخدم كلمات الأسبوع", "Listening: Full Test Cambridge 15 Test 2"],
+            ["راحة", "راجع كل Anki cards", "TED Talk 30 دقيقة لموضوع بتحبه"]
+          ]],
+          ["أسبوع 3", "Writing Mastery - Templates وأساليب", [
+            ["احفظ Task 2 Template", "Essay: Government controlling food", "تصحيح writeandimprove.com", "Listening: Cambridge 16 Sec 1&2"],
+            ["Discussion Essay: Technology destroying relationships", "استخدم while/whereas/on the other hand", "Reading: Cambridge 16 Passage 3", "Speaking: Part 3 Discussion"],
+            ["Problem/Solution Essay: Traffic congestion", "احفظ Task 1 Template", "Listening: Cambridge 16 Sec 3&4", "Speaking: سجل 15 دقيقة"],
+            ["Task 1: Line Graph + كلمات التغيير", "Task 2: مراجعة أخطاء الأسبوع", "Reading: Cambridge 17 Passage 1", "Speaking: Part 1 تدريب"],
+            ["Task 1: Bar Chart + Pie Chart في يوم واحد", "Listening: Full Test Cambridge 16 Test 2", "Vocabulary: راجع AWL"],
+            ["Full Writing Test: Task 1 في 20 د + Task 2 في 40 د", "تصحيح writeandimprove.com", "Reading: Cambridge 17 Passage 2"],
+            ["راحة", "راجع Essays", "اكتب قائمة أخطاء متكررة", "احفظ Templates كويس"]
+          ]],
+          ["أسبوع 4", "Speaking Confidence - تسجيل وتحليل", [
+            ["Speaking Part 1: سجل 20 سؤال", "Grammar مراجعة شاملة", "Writing Task 2 موضوع اختيارك", "Listening: Cambridge 17 Sec 1&2"],
+            ["Speaking Part 2: A place you visited + Person who influenced you + A book", "احسب WPM - هدف 100", "Reading: Cambridge 17 Passage 3", "Task 1 اليوم"],
+            ["Speaking Part 3: أسئلة عميقة", "Formula: That's interesting. I think...", "Listening: Cambridge 17 Full Test", "Writing Task 2"],
+            ["Pronunciation: ELSA Speak 45 دقيقة", "تدريب /p/ /b/ /theta/ /th/", "Reading: Cambridge 14 Test 2", "Task 1 اليوم"],
+            ["Shadowing: Simon Sinek TED Talk", "استمع جملة + قولها 3 مرات", "Listening: Section 3&4 تدريب", "Task 2 اليوم"],
+            ["Full Mock Speaking: Part 1 + Part 2 + Part 3 مسجل كامل", "Reading: Full Test بالوقت"],
+            ["راحة خفيفة", "تحليل تسجيلات الأسبوع", "حدد 3 أخطاء متكررة", "BBC Podcast"]
+          ]]
+        ]
+      },
+      {
+        id: "p2",
+        number: "٢",
+        title: "المرحلة الثانية - تطوير مهارات IELTS",
+        subtitle: "إتقان Strategies لكل مهارة",
+        weeks: "أسبوع 5 - 8",
+        weeksData: [
+          ["أسبوع 5", "Reading Strategies - من 4.5 إلى 6.0", [
+            ["Reading Strategy: Skimming 30 ثانية + Keyword", "Cambridge 16 Test 1 كامل 60 دقيقة", "تحليل كل غلطة", "Speaking: Part 2 مسجل"],
+            ["تحليل Cambridge 16 Test 1 يوم كامل", "ركز على True/False/Not Given", "افهم سبب كل غلطة", "Writing Task 2"],
+            ["Cambridge 16 Test 2 كامل 60 دقيقة", "تركيز على Headings Matching", "Listening: Full Test", "Speaking: Part 1 تدريب"],
+            ["تحليل Cambridge 16 Test 2", "حدد passages اللي بتاخد وقت أكتر", "Writing Task 1"],
+            ["Cambridge 17 Test 1 كامل", "حاول تحسن Score", "Listening: Sec 3&4", "Speaking: Part 3"],
+            ["Full Reading Test بالتوقيت الكامل", "قارن score بالأسابيع السابقة", "Writing Task 2"],
+            ["راحة", "اقرأ مقال من BBC أو The Guardian", "Podcast: 6 Minute English"]
+          ]],
+          ["أسبوع 6", "Listening Mastery - من 5.0 إلى 6.5", [
+            ["Listening Strategy: اقرأ الأسئلة قبل الصوت دائما", "اكتب أي إجابة", "Cambridge 14 Sec 1&2", "Speaking Part 2", "Reading Passage"],
+            ["Cambridge 14 Sec 3&4", "ركز على المحتوى الأكاديمي الأصعب", "Writing Task 1", "Speaking Part 1"],
+            ["Cambridge 15 Full Listening Test", "Shadowing من Audio Script", "Writing Task 2", "Reading Passage"],
+            ["Cambridge 15 Sec 3&4 مرتين", "تحسين Spelling", "Reading: Cambridge 15 Full Test", "Speaking Part 3"],
+            ["Cambridge 16 Test 1 Listening بدون توقف", "انتبه Spelling", "Writing Task 1", "Reading Passage", "Speaking مسجل"],
+            ["Full Listening Test Cambridge 16 Test 2", "ظروف امتحان حقيقية واحسب Score", "Writing Task 2", "Reading"],
+            ["راحة", "BBC Podcast: 6 Minute English", "راجع Spelling Errors"]
+          ]],
+          ["أسبوع 7", "Writing Advanced - Task 1 & 2 احترافي", [
+            ["Ideas for IELTS: 5 Topics يوميا", "Task 2: Opinion Essay موضوع جديد", "Reading Full Test", "Listening Sec 3&4"],
+            ["Task 2: Discussion Essay + كلمات Advanced", "Task 1: Multiple Graphs", "Speaking: استخدم Ideas for IELTS"],
+            ["Task 2: Problem/Solution + Advantage/Disadvantage", "Listening Full Test", "Reading Passage", "Speaking Part 2"],
+            ["Task 1: Process Diagram + Map", "Task 2: Two-Part Essay", "Reading Full Test", "Speaking Part 3"],
+            ["راجع Essays الأسبوع كله", "قائمة أخطاء متكررة", "Listening Sec 3&4", "Speaking مسجل"],
+            ["Full Writing Test: Task 1 في 20 د + Task 2 في 40 د", "Full Reading Test", "Listening Full Test", "Speaking Mock"],
+            ["راحة", "مراجعة Writing + Vocabulary", "TED Talk للاستمتاع"]
+          ]],
+          ["أسبوع 8", "Speaking Advanced - Fluency & Coherence", [
+            ["Makkar Speaking: 10 Cue Cards جديدة", "JAM Technique تدريب", "Writing Task 2", "Listening Full Test"],
+            ["Speaking Part 3: عمق + Formula احترافية", "ELSA Speak 30 دقيقة", "Reading Full Test", "Writing Task 1"],
+            ["Shadowing: TED Talk 15 دقيقة", "Makkar: 10 Cue Cards أخرى", "Listening Sec 3&4", "Writing Task 2"],
+            ["Full Mock Speaking 15 دقيقة كاملة مسجلة", "تحليل التسجيل", "Reading Full Test", "Writing Task 1"],
+            ["Speaking Part 1: 20 سؤال مختلفة", "Pronunciation تدريب", "Listening Full Test", "Writing Task 2"],
+            ["Full Mock: الأربع مهارات في يوم واحد بالترتيب الحقيقي"],
+            ["راحة", "تحليل الـ Mock", "حدد أضعف 3 نقاط", "BBC Podcast"]
+          ]]
+        ]
+      },
+      {
+        id: "p3",
+        number: "٣",
+        title: "المرحلة الثالثة - Mock Tests + تثبيت",
+        subtitle: "اختبارات كاملة + تصحيح أخطاء + استعداد نهائي",
+        weeks: "أسبوع 9 - 12",
+        weeksData: [
+          ["أسبوع 9", "Mock Week 1 - تحديد الفجوات", [
+            ["Full Mock Test 1: Listening Cambridge 17 Test 1 + Reading + Writing + Speaking", "كل ده في يوم واحد ومسجل"],
+            ["تحليل Mock 1", "اكتب كل غلطة", "حدد أضعف 3 نقاط", "Writing: راجع مقالات الأسبوع"],
+            ["اشتغل على أضعف مهارة من Mock 1", "Vocabulary مراجعة Anki", "Speaking: Cue Cards من Makkar"],
+            ["Full Mock Test 2: Cambridge 17 Test 2", "نفس الظروف بالضبط ووقّت نفسك بدقة"],
+            ["تحليل Mock 2", "قارن مع Mock 1", "هل تحسنت؟", "Writing Intensive: راجع كل Essays"],
+            ["Speaking Intensive: سجل ساعة كاملة", "20 سؤال Part 1 + 5 Cue Cards + 10 Part 3"],
+            ["راحة ذكية", "Podcast", "مراجعة Checklists", "نام بدري"]
+          ]],
+          ["أسبوع 10", "Mock Week 2 - تحسين مستهدف", [
+            ["Full Mock Test 3: Cambridge 16 Test 1 Academic", "كل المهارات بالترتيب الحقيقي"],
+            ["تحليل Mock 3", "Focus على Reading + Speaking", "Writing: 2 مقال اليوم"],
+            ["Reading Sprint: 3 Passages بالوقت من Cambridge 15", "مراجعة Strategies", "Speaking Part 2 تدريب مكثف"],
+            ["Full Mock Test 4: Cambridge 16 Test 2", "وقّت بدقة", "Speaking مسجل"],
+            ["تحليل Mock 4", "Writing checklist قبل كل مقال", "Vocabulary: راجع 400 كلمة من الشهرين"],
+            ["Listening Sprint: Cambridge 17 Test 1 + 2 في نفس اليوم", "Shadowing من Audio Script"],
+            ["راحة", "مراجعة الأسبوع", "Podcast", "نام 8 ساعات"]
+          ]],
+          ["أسبوع 11", "الأسبوع قبل الامتحان - تثبيت", [
+            ["Full Mock Test 5: Cambridge 17 Test 2", "أصعب mock", "حاول تحقق Target Score"],
+            ["تحليل نهائي", "اكتب قائمة نهائية بأخطائك", "Writing Final Review", "Speaking Final Review"],
+            ["Writing: راجع Templates + أفضل 5 Essays", "Reading: Passage واحدة فقط", "Speaking خفيف"],
+            ["Vocabulary: راجع كل Anki", "Grammar: راجع Rules الأساسية", "Listening: Section واحد فقط"],
+            ["Speaking: 10 أسئلة Part 1 + 2 Cue Cards + 5 Part 3", "تسجيل وتحليل", "Writing Task 2 واحد فقط"],
+            ["مراجعة Checklists كلها", "ما تذاكرش حاجة جديدة", "Podcast خفيف", "نام بدري"],
+            ["راحة تامة", "جهز ID وهدومك", "كل كويس وصحي"]
+          ]],
+          ["أسبوع 12", "يوم الامتحان - استعداد أخير", [
+            ["Exam Day Checklist", "ID جاهز", "فطار كويس", "ثق في نفسك: اشتغلت 3 شهور"],
+            ["تهدئة ومراجعة خفيفة فقط", "مفيش محتوى جديد", "نوم كويس"],
+            ["راحة ذهنية", "تنظيم الأوراق", "مراجعة checklist"],
+            ["حافظ على روتين نوم ثابت", "مشي خفيف", "تجنب الضغط"],
+            ["مراجعة أخطاء بسيطة فقط", "لا تعمل mock كامل"],
+            ["استعداد نهائي", "جهز الطريق ومكان اللجنة"],
+            ["انتهت الرحلة", "قدم نتيجتك واحتفل بجهدك", "الخطوة الجاية تبدأ بعد النتيجة"]
+          ]]
+        ]
+      }
+    ];
+
+    const trackerDefaults = Array.from({ length: 12 }, (_, index) => [
+      `أسبوع ${index + 1}`,
+      "",
+      "___ / 40",
+      "___ / 40",
+      "",
+      "",
+      ""
+    ]);
+
+    const todayStoragePrefix = "ieltsToday";
+
+    // --- Backend Sync Logic ---
+    async function syncWithServer(endpoint, method = 'GET', data = null) {
+      const statusText = document.getElementById('status-text');
+      const statusDot = document.getElementById('status-dot');
+      try {
+        const options = {
+          method,
+          headers: { 'Content-Type': 'application/json' }
+        };
+        if (data) options.body = JSON.stringify(data);
+        
+        const response = await fetch(`${API_URL}${endpoint}`, options);
+        if (!response.ok) throw new Error('Network error');
+        
+        statusText.textContent = "متصل - تم المزامنة";
+        statusDot.style.background = "var(--green)";
+        return await response.json();
+      } catch (e) {
+        console.error("Backend offline, using local storage", e);
+        statusText.textContent = "يعمل محلياً (أوفلاين)";
+        statusDot.style.background = "var(--red)";
+        return null;
+      }
+    }
+
+    async function saveState(key, value) {
+      localStorage.setItem(key, value);
+      // Push to backend
+      await syncWithServer('/save', 'POST', { key, value });
+    }
+
+    function activateTab(tabName) {
+      const tabEls = document.querySelectorAll(".nav-tab");
+      tabEls.forEach(item => {
+        const isActive = item.dataset.tab === tabName;
+        item.classList.toggle("active", isActive);
+        item.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        // Ensure focus ring + semantics stay aligned even when toggled programmatically.
+        if (isActive) item.tabIndex = 0;
+        else item.tabIndex = -1;
+      });
+
+      document.querySelectorAll(".tab-panel").forEach(panel => {
+        const isActive = panel.id === `tab-${tabName}`;
+        panel.classList.toggle("active", isActive);
+        panel.hidden = !isActive;
+      });
+    }
+
+
+
+    function currentDateKey() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, "0");
+      const day = String(now.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    }
+
+    function ensureTodayDate() {
+      const key = `${todayStoragePrefix}:date`;
+      const today = currentDateKey();
+      if (localStorage.getItem(key) !== today) {
+        Object.keys(localStorage).forEach(storageKey => {
+          if (storageKey.startsWith(`${todayStoragePrefix}:`) && storageKey !== key) {
+            localStorage.removeItem(storageKey);
+          }
+        });
+        saveState(key, today);
+      }
+    }
+
+    function buildWeekSelect() {
+      const select = document.getElementById("current-week");
+      select.innerHTML = phases.flatMap((phase, phaseIndex) =>
+        phase.weeksData.map((week, weekIndex) => {
+          const weekNumber = phaseIndex * 4 + weekIndex + 1;
+          return `<option value="${weekNumber}">أسبوع ${weekNumber} - ${week[1]}</option>`;
+        })
+      ).join("");
+    }
+
+    function buildDaySelect() {
+      const select = document.getElementById("current-day");
+      select.innerHTML = Array.from({ length: 7 }, (_, index) => `<option value="${index + 1}">يوم ${index + 1}</option>`).join("");
+      select.value = localStorage.getItem("ieltsCurrentDay") || "1";
+    }
+
+    function getCurrentWeekInfo() {
+      const weekNumber = Math.min(Math.max(Number(document.getElementById("current-week").value) || 1, 1), 12);
+      const dayNumber = Math.min(Math.max(Number(document.getElementById("current-day").value) || 1, 1), 7);
+      const phaseIndex = Math.floor((weekNumber - 1) / 4);
+      const weekIndex = (weekNumber - 1) % 4;
+      const phase = phases[phaseIndex];
+      const week = phase.weeksData[weekIndex];
+      const tasks = week[2][dayNumber - 1] || [];
+      return { weekNumber, dayNumber, phaseIndex, weekIndex, phase, week, tasks };
+    }
+
+    function setCurrentWeek(weekNumber, openWeek = false) {
+      const safeWeek = Math.min(Math.max(Number(weekNumber) || 1, 1), 12);
+      saveState("ieltsCurrentWeek", String(safeWeek));
+      document.getElementById("current-week").value = String(safeWeek);
+
+      const phaseIndex = Math.floor((safeWeek - 1) / 4);
+      const weekIndex = (safeWeek - 1) % 4;
+      const phase = phases[phaseIndex];
+      const week = phase.weeksData[weekIndex];
+      document.getElementById("current-week-note").textContent = `${phase.title}: ${week[0]} - ${week[1]}`;
+
+      document.querySelectorAll(".phase").forEach(item => item.classList.remove("current-phase"));
+      document.querySelectorAll(".week-tab").forEach(item => item.classList.remove("current-week"));
+
+      const phaseEl = document.getElementById(phase.id);
+      const weekButton = document.querySelector(`[data-week="${phase.id}-${weekIndex}"]`);
+      if (phaseEl) phaseEl.classList.add("current-phase");
+      if (weekButton) weekButton.classList.add("current-week");
+      renderTodayChecklist();
+
+      if (openWeek && phaseEl && weekButton) {
+        document.querySelectorAll(".phase").forEach(item => {
+          item.classList.toggle("open", item === phaseEl);
+          const button = item.querySelector(".phase-head");
+          if (button) button.setAttribute("aria-expanded", item === phaseEl ? "true" : "false");
+        });
+        const body = weekButton.closest(".phase-body");
+        body.querySelectorAll(".week-tab").forEach(item => item.classList.toggle("active", item === weekButton));
+        body.querySelectorAll(".week-content").forEach(content => content.classList.toggle("active", content.id === weekButton.dataset.week));
+        activateTab("roadmap");
+        phaseEl.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+
+    function setCurrentDay(dayNumber) {
+      const safeDay = Math.min(Math.max(Number(dayNumber) || 1, 1), 7);
+      saveState("ieltsCurrentDay", String(safeDay));
+      document.getElementById("current-day").value = String(safeDay);
+      renderTodayChecklist();
+    }
+
+    function todayTaskKey(taskIndex) {
+      const { weekNumber, dayNumber } = getCurrentWeekInfo();
+      return `${todayStoragePrefix}:${currentDateKey()}:w${weekNumber}:d${dayNumber}:t${taskIndex}`;
+    }
+
+    function renderTodayChecklist() {
+      ensureTodayDate();
+      const { weekNumber, dayNumber, week, tasks } = getCurrentWeekInfo();
+      document.getElementById("today-title").textContent = `Today Checklist - أسبوع ${weekNumber} / يوم ${dayNumber}`;
+      document.getElementById("current-week-note").textContent = `${week[0]} - ${week[1]}: مهام يوم ${dayNumber}`;
+      document.getElementById("today-checks").innerHTML = tasks.map((task, taskIndex) => `
+        <label class="today-check">
+          <input type="checkbox" data-today-check="${taskIndex}">
+          ${task}
+        </label>
+      `).join("");
+      document.querySelectorAll("[data-today-check]").forEach(input => {
+        input.checked = localStorage.getItem(todayTaskKey(input.dataset.todayCheck)) === "1";
+      });
+      updateTodayProgress();
+    }
+
+    function updateTodayProgress() {
+      const inputs = [...document.querySelectorAll("[data-today-check]")];
+      const done = inputs.filter(input => input.checked).length;
+      const total = inputs.length;
+      const percent = total ? Math.round((done / total) * 100) : 0;
+      document.getElementById("today-progress-text").textContent = `${done} من ${total} - ${percent}%`;
+      document.getElementById("today-progress-bar").style.width = `${percent}%`;
+    }
+
+    function resetTodayChecks() {
+      document.querySelectorAll("[data-today-check]").forEach(input => {
+        input.checked = false;
+        localStorage.removeItem(todayTaskKey(input.dataset.todayCheck));
+      });
+      saveState(`${todayStoragePrefix}:date`, currentDateKey());
+      updateTodayProgress();
+    }
+
+    function buildRoadmap() {
+      const host = document.getElementById("roadmap");
+      host.innerHTML = phases.map((phase, phaseIndex) => `
+        <article class="panel phase ${phaseIndex === 0 ? "open" : ""}" id="${phase.id}">
+          <button class="phase-head" type="button" aria-expanded="${phaseIndex === 0 ? "true" : "false"}">
+            <span class="phase-num">${phase.number}</span>
+            <span>
+              <strong class="phase-title">${phase.title}</strong>
+              <span class="muted">${phase.subtitle}</span>
+            </span>
+            <span class="pill">${phase.weeks}</span>
+            <span class="chevron">▼</span>
+          </button>
+          <div class="phase-body">
+            <div class="week-tabs">
+              ${phase.weeksData.map((week, i) => `<button class="week-tab ${i === 0 ? "active" : ""}" type="button" data-week="${phase.id}-${i}">${week[0]}</button>`).join("")}
+            </div>
+            ${phase.weeksData.map((week, i) => `
+              <div class="week-content ${i === 0 ? "active" : ""}" id="${phase.id}-${i}">
+                <h3>${week[0]} - ${week[1]}</h3>
+                <div class="day-list">
+                  ${week[2].map((tasks, dayIndex) => `
+                    <div class="day ${dayIndex === 6 ? "rest-day" : ""}">
+                      <div class="day-num">${dayIndex + 1}</div>
+                      <div class="tasks">${tasks.map(task => `<span class="pill">${task}</span>`).join("")}</div>
+                    </div>
+                  `).join("")}
+                </div>
+              </div>
+            `).join("")}
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function buildTracker() {
+      const savedData = JSON.parse(localStorage.getItem("ieltsTracker") || "null");
+      const saved = Array.isArray(savedData)
+        && savedData.length === trackerDefaults.length
+        && savedData.every(row => Array.isArray(row) && row.length === trackerDefaults[0].length)
+        ? savedData
+        : trackerDefaults;
+      document.getElementById("tracker-body").innerHTML = saved.map((row, rowIndex) => `
+        <tr>
+          ${row.map((value, colIndex) => colIndex === 0
+            ? `<td>${value}</td>`
+            : `<td><input aria-label="${row[0]} column ${colIndex}" data-row="${rowIndex}" data-col="${colIndex}" value="${value}"></td>`
+          ).join("")}
+        </tr>
+      `).join("");
+    }
+
+    function saveTracker() {
+      const rows = trackerDefaults.map(row => [...row]);
+      document.querySelectorAll("#tracker-body input").forEach(input => {
+        rows[Number(input.dataset.row)][Number(input.dataset.col)] = input.value;
+      });
+      saveState("ieltsTracker", JSON.stringify(rows));
+    }
+
+    function restoreChecks() {
+      document.querySelectorAll("[data-check]").forEach(input => {
+        input.checked = localStorage.getItem(`ieltsCheck:${input.dataset.check}`) === "1";
+      });
+    }
+
+    // Load data from Server on start
+    async function initApp() {
+      const serverData = await syncWithServer('/data');
+      if (serverData) {
+        Object.keys(serverData).forEach(key => {
+          localStorage.setItem(key, serverData[key]);
+        });
+      }
+
+      buildRoadmap();
+      buildWeekSelect();
+      buildDaySelect();
+      buildTracker();
+      restoreChecks();
+      
+      const currentWeek = localStorage.getItem("ieltsCurrentWeek") || "1";
+      const currentDay = localStorage.getItem("ieltsCurrentDay") || "1";
+      
+      setCurrentWeek(currentWeek);
+      setCurrentDay(currentDay);
+      
+      document.getElementById("current-week").value = currentWeek;
+      document.getElementById("current-day").value = currentDay;
+    }
+
+    initApp();
+
+    function applyTheme(theme){
+      const btn = document.getElementById('theme-toggle');
+      if(theme === 'dark'){
+        document.body.setAttribute('data-theme','dark');
+        btn.textContent = 'الوضع: أسود';
+        btn.setAttribute('aria-pressed','true');
+      } else {
+        document.body.removeAttribute('data-theme');
+        btn.textContent = 'الوضع: أبيض';
+        btn.setAttribute('aria-pressed','false');
+      }
+    }
+
+
+    // Ensure theme pressed state is reflected for accessibility
+    const themeToggle = document.getElementById('theme-toggle');
+
+    themeToggle.addEventListener('click', ()=>{
+      const next = (document.body.getAttribute('data-theme') === 'dark') ? 'light' : 'dark';
+      localStorage.setItem('ieltsTheme', next);
+      applyTheme(next);
+    });
+
+    applyTheme(localStorage.getItem('ieltsTheme') || 'light');
+
+    const prefersReduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduce) document.body.setAttribute('data-reduce-motion','true');
+
+    document.addEventListener('keydown', event => {
+      const key = event.key;
+      const tab = event.target.closest('.nav-tab');
+      if (!tab) return;
+
+      // We deliberately avoid enforcing ARIA tablist parent roles to keep markup valid.
+
+
+      if (key !== 'ArrowLeft' && key !== 'ArrowRight' && key !== 'Home' && key !== 'End') return;
+
+      const tabs = [...document.querySelectorAll('.nav-tab')];
+      const activeIndex = tabs.findIndex(t => t.classList.contains('active'));
+      const isRtl = document.documentElement.dir === 'rtl';
+
+      let nextIndex = activeIndex;
+      if (key === 'Home') nextIndex = 0;
+      if (key === 'End') nextIndex = tabs.length - 1;
+
+      if (key === 'ArrowLeft' || key === 'ArrowRight') {
+        const dir = (key === 'ArrowLeft') ? -1 : 1;
+        nextIndex = isRtl ? activeIndex - dir : activeIndex + dir;
+        nextIndex = Math.max(0, Math.min(tabs.length - 1, nextIndex));
+      }
+
+      event.preventDefault();
+      const targetTab = tabs[nextIndex];
+      if (targetTab) targetTab.click();
+    });
+
+    document.addEventListener("click", event => {
+
+
+
+
+      const tab = event.target.closest(".nav-tab");
+      if (tab) {
+        activateTab(tab.dataset.tab);
+      }
+
+      if (event.target.closest("#open-current-week")) {
+        setCurrentWeek(document.getElementById("current-week").value, true);
+      }
+
+      if (event.target.closest("#reset-today")) {
+        resetTodayChecks();
+      }
+
+      const phaseHead = event.target.closest(".phase-head");
+      if (phaseHead) {
+        const phase = phaseHead.closest(".phase");
+        phase.classList.toggle("open");
+        phaseHead.setAttribute("aria-expanded", phase.classList.contains("open"));
+      }
+
+      const weekTab = event.target.closest(".week-tab");
+      if (weekTab) {
+        const body = weekTab.closest(".phase-body");
+        body.querySelectorAll(".week-tab").forEach(item => item.classList.toggle("active", item === weekTab));
+        body.querySelectorAll(".week-content").forEach(content => content.classList.toggle("active", content.id === weekTab.dataset.week));
+      }
+    });
+
+    document.addEventListener("change", event => {
+      const check = event.target.closest("[data-check]");
+      if (check) {
+        saveState(`ieltsCheck:${check.dataset.check}`, check.checked ? "1" : "0");
+      }
+
+      const todayCheck = event.target.closest("[data-today-check]");
+      if (todayCheck) {
+        saveState(todayTaskKey(todayCheck.dataset.todayCheck), todayCheck.checked ? "1" : "0");
+        updateTodayProgress();
+      }
+
+      if (event.target.closest("#current-week")) {
+        setCurrentWeek(event.target.value);
+      }
+
+      if (event.target.closest("#current-day")) {
+        setCurrentDay(event.target.value);
+      }
+
+      if (event.target.closest("#tracker-body input")) {
+        saveTracker();
+      }
+    });
+  </script>
+</body>
+</html>
